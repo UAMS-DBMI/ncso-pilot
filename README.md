@@ -18,7 +18,7 @@ From the NCSO Website root:
 
 Note: If you have a bower git error run the following command:
 
-`$git config --global url."https://".insteadOf git://`
+`$ git config --global url."https://".insteadOf git://`
 
 
 
