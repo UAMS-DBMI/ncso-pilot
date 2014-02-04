@@ -10,7 +10,7 @@ Building the Angular Front End
 
 From the NCSO Website root:
 
-`$cd app/frontend/angularjs`
+`$ cd app/frontend/angularjs`
 
 `$ npm install`
 
