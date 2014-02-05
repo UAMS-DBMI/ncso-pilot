@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularjsApp', [
+angular.module('ncsoDemo', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
@@ -10,7 +10,11 @@ angular.module('angularjsApp', [
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        controller: 'LandingPage'
+      })
+      .when('/apidetail', {
+          templateUrl: 'views/detail.html',
+          controller: 'APIDetailView'
       })
       .otherwise({
         redirectTo: '/'

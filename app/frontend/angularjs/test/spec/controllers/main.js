@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
+describe('Controller: LandingPage', function () {
 
   // load the controller's module
-  beforeEach(module('angularjsApp'));
+  beforeEach(module('ncsoDemo'));
 
-  var MainCtrl,
+  var LandingPage,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
+    LandingPage = $controller('LandingPage', {
       $scope: scope
     });
   }));

@@ -1,5 +1,5 @@
-NCSO Website
-------------
+NCSO Demo Website
+-----------------
 
 The NCSO Website consists of 2 components, the front end using Angular.js and the back end API using the Play! framework
 and Scala.
@@ -45,6 +45,8 @@ Running the Back End API
 ========================
 
 `$ sbt run`
+
+Navigate to http://localhost:9000/ and you can access the most recent front end deployed files.
 
 
 
