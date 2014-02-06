@@ -22,17 +22,12 @@ object NCSOAPI extends Controller {
       val resultCols : Map[String, List[String]] = SesameDAO.getResultColumnMapFromSPARQLQuery(sparqlQuery).toMap
       SesameDAO.closeRepo
 
-      var jsonOutput : Map[String, JsValue] = Map[String, JsValue]()
-
-      // Place sparqlQuery in Json
-      jsonOutput = Map("sparqlQuery" -> Json.toJson(sparqlQuery))
-
-      // Place sparqlQuery output in Json
-      jsonOutput = jsonOutput ++ Map("sparqlResults" -> Json.toJson(resultRows))
-
-      // Place sqlQuery in Json
-      jsonOutput = jsonOutput ++ Map("sqlQuery" -> Json.toJson(sqlQuery))
-
-      Ok(Json.toJson(jsonOutput))
+      Ok(Json.toJson(
+        Map(
+          "sparqlQuery" -> Json.toJson(sparqlQuery),
+          "sparqlResults" -> Json.toJson(resultRows),
+          "sqlQuery" -> Json.toJson(sqlQuery)
+        )
+      ))
     }
 }
