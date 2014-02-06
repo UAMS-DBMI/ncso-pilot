@@ -12,7 +12,7 @@ import org.openrdf.model.{Literal, URI}
 import org.openrdf.model.vocabulary.{RDFS, RDF}
 import collection.JavaConversions._
 import java.io.{ByteArrayOutputStream, OutputStream}
-import org.openrdf.query.resultio.sparqljson.SPARQLResultsJSONWriter;
+import org.openrdf.query.resultio.sparqljson.SPARQLResultsJSONWriter
 import play.api.libs.json._
 
 
@@ -24,23 +24,30 @@ object SesameDAO {
   val repositoryID = mainRepo
   val repo: Repository = new HTTPRepository(sesameServer, repositoryID)
 
-  def initializeRepo = {
+  def initializeRepo () = {
     repo.initialize()
   }
 
-  def closeRepo = {
+  def closeRepo () = {
     repo.shutDown()
   }
 
-  def getResultsFromSPARQLQuery (query: String) : String  = {
+  def getResultMapFromSPARQLQuery (sparqlQuery: String) : Map[String, List[String]]  = {
     val con = repo.getConnection
-    val tupleQuery = con.prepareTupleQuery(QueryLanguage.SPARQL, query)
-    var out = new ByteArrayOutputStream
-    var writer = new SPARQLResultsJSONWriter(out);
-    tupleQuery.evaluate(writer)
-    con.close
-    var result = out.toString
-    out.close
-    result
+    val tupleQuery = con.prepareTupleQuery(QueryLanguage.SPARQL, sparqlQuery)
+    val result = tupleQuery.evaluate
+    val bindingNames : Seq[String] = result.getBindingNames
+    val resultMap : Map[String, List[String]] = new HashMap[String, List[String]]
+
+    // Create a generic map from the result bindingNames and values
+    while(result.hasNext) {
+      val next = result.next
+      for (name: String <- bindingNames) {
+        resultMap(name) = next.getValue(name).stringValue() ::  resultMap.getOrElse(name , List[String]())
+      }
+    }
+    con.close()
+    resultMap
   }
 }
+
