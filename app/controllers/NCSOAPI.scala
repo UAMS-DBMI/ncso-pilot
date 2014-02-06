@@ -17,8 +17,6 @@ object NCSOAPI extends Controller {
 
       SesameDAO.initializeRepo
       val resultRows : List[List[String]] = SesameDAO.getResultRowsFromSPARQLQuery(sparqlQuery)
-
-      //If you want the columns uncomment the line below:
       val resultCols : Map[String, List[String]] = SesameDAO.getResultColumnMapFromSPARQLQuery(sparqlQuery).toMap
       SesameDAO.closeRepo
 
