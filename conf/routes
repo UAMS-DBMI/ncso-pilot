@@ -3,7 +3,7 @@
 # ~~~~
 
 # NCSO API
-GET         /getCurrentAPIs                     controllers.NCSOAPI.listCurrentAPIS
+GET         /getcurrentapis                     controllers.NCSOAPI.listCurrentAPIS
 GET         /testsesameconnection               controllers.NCSOAPI.sesameConnectionTest
 
 # Route to Angular.js App static dist files

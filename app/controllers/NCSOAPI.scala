@@ -8,8 +8,11 @@ import play.api.libs.json._
 import models.SesameDAO
 
 object NCSOAPI extends Controller {
+    val list_of_APIS = List("getcurrentapis", "testsesameconnection")
 
-    def listCurrentAPIS = TODO
+    def listCurrentAPIS = Action {
+      Ok(Json.toJson(Map("currentAPIs" -> Json.toJson(list_of_APIS))))
+    }
 
     def sesameConnectionTest = Action {
       val sparqlQuery = "SELECT  ?p (COUNT(DISTINCT ?o ) AS ?count ) { ?s ?p ?o } GROUP BY ?p ORDER BY ?count"

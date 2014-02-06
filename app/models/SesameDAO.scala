@@ -32,7 +32,7 @@ object SesameDAO {
     repo.shutDown()
   }
 
-  // Returns a list that represents a row within a result table.
+  // Returns a list that represents the rows within a result table.
   def getResultRowsFromSPARQLQuery (sparqlQuery: String) : List[List[String]]  = {
     val con = repo.getConnection
     val tupleQuery = con.prepareTupleQuery(QueryLanguage.SPARQL, sparqlQuery)
