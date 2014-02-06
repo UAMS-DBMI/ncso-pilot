@@ -16,22 +16,21 @@ object NCSOAPI extends Controller {
       val sqlQuery = "SELECT * FROM FAKE_TABLE fk1 INNER JOIN FAKER_TABLE fk2 ON fk1.FakeID = fk2.FakeID"
 
       SesameDAO.initializeRepo
-      var resultMap : Map[String, List[String]] = SesameDAO.getResultMapFromSPARQLQuery(sparqlQuery).toMap
+      val resultRows : List[List[String]] = SesameDAO.getResultRowsFromSPARQLQuery(sparqlQuery)
+
+      //If you want the columns uncomment the line below:
+      val resultCols : Map[String, List[String]] = SesameDAO.getResultColumnMapFromSPARQLQuery(sparqlQuery).toMap
       SesameDAO.closeRepo
+
       var jsonOutput : Map[String, JsValue] = Map[String, JsValue]()
 
-      // place sparqlQuery in Json
+      // Place sparqlQuery in Json
       jsonOutput = Map("sparqlQuery" -> Json.toJson(sparqlQuery))
 
-      // place sparqlQuery output in Json
-      var sparqlOutputList : List[Map[String, List[String]]] = List[Map[String, List[String]]]()
+      // Place sparqlQuery output in Json
+      jsonOutput = jsonOutput ++ Map("sparqlResults" -> Json.toJson(resultRows))
 
-      for (key: String <- resultMap.keys) {
-        sparqlOutputList = Map(key -> resultMap.getOrElse(key, List("None"))) :: sparqlOutputList
-      }
-      jsonOutput = jsonOutput ++ Map("sparqlResults" -> Json.toJson(sparqlOutputList))
-
-      // place sqlQuery in Json
+      // Place sqlQuery in Json
       jsonOutput = jsonOutput ++ Map("sqlQuery" -> Json.toJson(sqlQuery))
 
       Ok(Json.toJson(jsonOutput))

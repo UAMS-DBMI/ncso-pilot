@@ -32,14 +32,37 @@ object SesameDAO {
     repo.shutDown()
   }
 
-  def getResultMapFromSPARQLQuery (sparqlQuery: String) : Map[String, List[String]]  = {
+  // Returns a list that represents a row within a result table.
+  def getResultRowsFromSPARQLQuery (sparqlQuery: String) : List[List[String]]  = {
+    val con = repo.getConnection
+    val tupleQuery = con.prepareTupleQuery(QueryLanguage.SPARQL, sparqlQuery)
+    val result = tupleQuery.evaluate
+    val bindingNames : Seq[String] = result.getBindingNames
+    var resultList : List[List[String]] = List[List[String]]()
+
+    // Create a list of rows from the result bindingNames and values
+    while(result.hasNext) {
+      val next = result.next
+      var rowList: List[String] = List[String]()
+      for (name: String <- bindingNames) {
+        rowList =  next.getValue(name).stringValue() :: rowList
+      }
+      resultList = rowList :: resultList
+    }
+    con.close()
+    resultList
+  }
+
+
+  // Returns a map where each output column name is mapped to a list of the column contents
+  def getResultColumnMapFromSPARQLQuery (sparqlQuery: String) : Map[String, List[String]]  = {
     val con = repo.getConnection
     val tupleQuery = con.prepareTupleQuery(QueryLanguage.SPARQL, sparqlQuery)
     val result = tupleQuery.evaluate
     val bindingNames : Seq[String] = result.getBindingNames
     val resultMap : Map[String, List[String]] = new HashMap[String, List[String]]
 
-    // Create a generic map from the result bindingNames and values
+    // Create a map of columns from the result bindingNames and values
     while(result.hasNext) {
       val next = result.next
       for (name: String <- bindingNames) {
