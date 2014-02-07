@@ -16,15 +16,14 @@ angular.module('ncsoDemo')
 
         objectListPromise.then(
           function (data) {
-            console.log(data);
             $scope.sqlQuery = data.data.sqlQuery;
             $scope.sparqlQuery = data.data.sparqlQuery;
             $scope.sparqlResults = data.data.sparqlResults;
+            console.log($scope.sparqlResults);
           }, function (err) {
             console.log('Error !' + err);
           }
         );
       }
-
 
     });
