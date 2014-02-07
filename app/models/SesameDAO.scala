@@ -31,26 +31,23 @@ object SesameDAO {
   }
 
   // Returns a list that represents the rows within a result table.
-  def getResultRowsFromSPARQLQuery (sparqlQuery: String) : List[List[Map[String, String]]]  = {
+  def getResultRowsFromSPARQLQuery (sparqlQuery: String) : List[Map[String, String]]  = {
     val con = repo.getConnection
     val tupleQuery = con.prepareTupleQuery(QueryLanguage.SPARQL, sparqlQuery)
     val result = tupleQuery.evaluate
     val bindingNames : Seq[String] = result.getBindingNames
-    var resultList : List[List[Map[String, String]]] = List[List[Map[String, String]]]()
+    var resultList : List[Map[String, String]] = List[HashMap[String, String]]()
 
     // Create a list of rows from the result bindingNames and values
     while(result.hasNext) {
       val next = result.next
-      var rowList: List[Map[String, String]] = List[Map[String, String]]()
+      var rowMap: scala.collection.mutable.Map[String, String] = scala.collection.mutable.HashMap[String, String]()
       for (name: String <- bindingNames) {
-        rowList = Map(name ->next.getValue(name).stringValue())  :: rowList
-        println(rowList)
+        rowMap(name) = next.getValue(name).stringValue();
       }
-      resultList = rowList :: resultList
+      resultList = rowMap.toMap :: resultList
     }
     con.close()
-
-    println(resultList)
     resultList
   }
 

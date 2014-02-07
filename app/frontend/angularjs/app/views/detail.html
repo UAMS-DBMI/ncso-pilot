@@ -39,7 +39,18 @@
 
     <div class="results">
        <h4>Results</h4>
-        <div ng-repeat="item in sparqlResults">{{item}}</div>
+        <table class="table">
+            <tbody>
+            <tr>
+                <th ng-repeat="header in colSparqlResults">{{header}}</th>
+            </tr>
+                <tr ng-repeat="item in sparqlResults">
+                    <td>{{item.count}}</td>
+                    <td>{{item.p}}</td>
+                </tr>
+            </tbody>
+        </table>
+
 
     </div>
 

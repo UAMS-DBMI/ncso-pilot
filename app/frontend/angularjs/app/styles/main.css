@@ -97,6 +97,13 @@ body {
 
 }
 
+.sparql-div h4 {
+    text-align: center;
+}
+
+.sql-div h4 {
+    text-align: center;
+}
 
 .query {
     background-color: lawngreen;
@@ -106,12 +113,15 @@ body {
 
 
 .results {
-    background-color: #ffff00;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
     min-height: 200px;
     float:left;
+}
+
+.results h4 {
+    text-align: center;
 }
 
 
