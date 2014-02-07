@@ -7,19 +7,23 @@
     <h3 class="text-muted">NCSO Demo</h3>
 </div>
 
+
+
 <div class="content" ng-app='ncsoDemo' ng-controller='APIDetailView' class="">
 
     <h3>Detail View of {{apiName}}</h3>
 
     <div class="sparql-div">
         <h4>SPARQL</h4>
-
         <div class="query">
-            {{sparqlQuery}}
+            <pre class="prettyprint">
+                {{sparqlQuery}}
+            </pre>
         </div>
 
         <div class="explanation">
-
+            <h5>Explanation:</h5>
+            <p>{{explanationText}}</p>
         </div>
     </div>
 
@@ -27,11 +31,12 @@
         <h4>SQL</h4>
 
         <div class="query">
-            {{sqlQuery}}
+             <pre class="prettyprint">
+                {{sqlQuery}}
+             </pre>
         </div>
 
         <div class="explanation">
-
         </div>
 
     </div>

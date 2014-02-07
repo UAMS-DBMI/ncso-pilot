@@ -9,6 +9,7 @@ angular.module('ncsoDemo')
       $scope.sparqlQuery;
       $scope.sparqlResults;
       $scope.colSparqlResults;
+      $scope.explanationText;
 
 
       getJsonData(serviceURL + $scope.apiName);
@@ -22,7 +23,7 @@ angular.module('ncsoDemo')
             $scope.sparqlQuery = data.data.sparqlQuery;
             $scope.sparqlResults = data.data.sparqlResults;
             $scope.colSparqlResults = Object.getOwnPropertyNames($scope.sparqlResults[0]);
-            console.log($scope.sparqlResults);
+            $scope.explanationText = data.data.explanation;
           }, function (err) {
             console.log('Error !' + err);
           }
