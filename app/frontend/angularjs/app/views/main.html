@@ -11,6 +11,12 @@
 
     <h3>Current List of NCSO APIs</h3>
 
+    <div class="apilist">
+        <div class="api" ng-repeat="api in apiList">
+            <a href="{{ncsodemoURL}}apidetail/?name={{api}}">{{api}}</a>
+        </div>
+    </div>
+
 </div>
 
 <div class="footer">

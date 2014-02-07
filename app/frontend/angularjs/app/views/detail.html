@@ -9,7 +9,43 @@
 
 <div class="content" ng-app='ncsoDemo' ng-controller='APIDetailView' class="">
 
-    <h3>API Detail View</h3>
+    <h3>Detail View of {{apiName}}</h3>
+
+    <div class="sparql-div">
+        <h4>SPARQL</h4>
+
+        <div class="query">
+            {{sparqlQuery}}
+        </div>
+
+        <div class="explanation">
+
+        </div>
+    </div>
+
+    <div class="sql-div">
+        <h4>SQL</h4>
+
+        <div class="query">
+            {{sqlQuery}}
+        </div>
+
+        <div class="explanation">
+
+        </div>
+
+    </div>
+
+
+    <div class="results">
+       <h4>Results</h4>
+
+       <table>
+           <tr>{{}}</tr>
+       </table>
+    </div>
+
+
 
 </div>
 

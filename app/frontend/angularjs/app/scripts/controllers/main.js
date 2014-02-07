@@ -1,17 +1,25 @@
 'use strict';
 
 angular.module('ncsoDemo')
-  .controller('LandingPage', function ($scope) {
+  .controller('LandingPage', function ($scope, $http, $location) {
+    // TODO: extract the below url to a config file
+    var serviceURL = 'http://localhost:9000/';
 
-    // TODO: Call the API to list all of the current APIs and save them to a $scope'd variable
-    // TODO: Display the above api list and when the user clicks on them:
-    //         * Append the following to the url: /apidetail/<apiname>
-    //         * Route the current page to the /apidetail/ path and that controller can grab
-    //         <apiname> and get the output of the api and shove into the view
+    function getJsonData (JSONURL) {
+      var objectListPromise = $http({method: 'GET', url: JSONURL});
 
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+      objectListPromise.then(
+        function (data) {
+          $scope.apiList = data.data.currentAPIs;
+        }, function (err) {
+          console.log('Error !' + err);
+        }
+      );
+    }
+
+
+    $scope.apiList = [];
+    $scope.ncsodemoURL = $location.absUrl();
+
+    getJsonData(serviceURL + 'getcurrentapis');
   });

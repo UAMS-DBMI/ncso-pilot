@@ -3,11 +3,9 @@ package models
 import org.openrdf.repository.Repository
 import org.openrdf.repository.http.HTTPRepository
 import org.openrdf.query.QueryLanguage
-import scala.collection.mutable.HashMap
-import scala.collection.mutable.Map
+import scala.collection.immutable.HashMap
+import scala.collection.immutable.Map
 
-import scala.collection.mutable.LinkedList
-import scala.collection.mutable
 import org.openrdf.model.{Literal, URI}
 import org.openrdf.model.vocabulary.{RDFS, RDF}
 import collection.JavaConversions._
@@ -33,23 +31,26 @@ object SesameDAO {
   }
 
   // Returns a list that represents the rows within a result table.
-  def getResultRowsFromSPARQLQuery (sparqlQuery: String) : List[List[String]]  = {
+  def getResultRowsFromSPARQLQuery (sparqlQuery: String) : List[List[Map[String, String]]]  = {
     val con = repo.getConnection
     val tupleQuery = con.prepareTupleQuery(QueryLanguage.SPARQL, sparqlQuery)
     val result = tupleQuery.evaluate
     val bindingNames : Seq[String] = result.getBindingNames
-    var resultList : List[List[String]] = List[List[String]]()
+    var resultList : List[List[Map[String, String]]] = List[List[Map[String, String]]]()
 
     // Create a list of rows from the result bindingNames and values
     while(result.hasNext) {
       val next = result.next
-      var rowList: List[String] = List[String]()
+      var rowList: List[Map[String, String]] = List[Map[String, String]]()
       for (name: String <- bindingNames) {
-        rowList =  next.getValue(name).stringValue() :: rowList
+        rowList = Map(name ->next.getValue(name).stringValue())  :: rowList
+        println(rowList)
       }
       resultList = rowList :: resultList
     }
     con.close()
+
+    println(resultList)
     resultList
   }
 
@@ -60,7 +61,7 @@ object SesameDAO {
     val tupleQuery = con.prepareTupleQuery(QueryLanguage.SPARQL, sparqlQuery)
     val result = tupleQuery.evaluate
     val bindingNames : Seq[String] = result.getBindingNames
-    val resultMap : Map[String, List[String]] = new HashMap[String, List[String]]
+    val resultMap : scala.collection.mutable.Map[String, List[String]] = new scala.collection.mutable.HashMap[String, List[String]]
 
     // Create a map of columns from the result bindingNames and values
     while(result.hasNext) {
@@ -70,7 +71,7 @@ object SesameDAO {
       }
     }
     con.close()
-    resultMap
+    resultMap.toMap
   }
 }
 
