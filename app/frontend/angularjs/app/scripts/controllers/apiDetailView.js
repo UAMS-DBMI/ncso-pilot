@@ -5,14 +5,12 @@ angular.module('ncsoDemo')
       // TODO: extract the below url to a config file
       var serviceURL = 'http://localhost:9000/';
       $scope.apiName = $routeParams.name;
-      $scope.sqlQuery;
-      $scope.sparqlQuery;
-      $scope.sparqlResults;
-      $scope.colSparqlResults;
-      $scope.explanationText;
+      $scope.sqlQuery = '';
+      $scope.sparqlQuery = '';
+      $scope.sparqlResults = [];
+      $scope.colSparqlResults = [];
+      $scope.explanationText = '';
 
-
-      getJsonData(serviceURL + $scope.apiName);
 
       function getJsonData (JSONURL) {
         var objectListPromise = $http({method: 'GET', url: JSONURL});
@@ -30,4 +28,5 @@ angular.module('ncsoDemo')
         );
       }
 
+      getJsonData(serviceURL + $scope.apiName);
     });

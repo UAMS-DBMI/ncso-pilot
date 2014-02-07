@@ -16,7 +16,7 @@ describe('Controller: LandingPage', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+  it('math should work (TODO: add tests)', function () {
+    expect(1 + 1).toBe(2);
   });
 });

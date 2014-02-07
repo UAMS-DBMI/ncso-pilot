@@ -13,8 +13,8 @@ angular.module('ncsoDemo', [
         controller: 'LandingPage'
       })
       .when('/apidetail', {
-          templateUrl: 'views/detail.html',
-          controller: 'APIDetailView'
+        templateUrl: 'views/detail.html',
+        controller: 'APIDetailView'
       })
       .otherwise({
         redirectTo: '/'
