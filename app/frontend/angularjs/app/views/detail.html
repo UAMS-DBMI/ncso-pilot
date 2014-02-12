@@ -50,8 +50,7 @@
                 <th ng-repeat="header in colSparqlResults">{{header}}</th>
             </tr>
                 <tr ng-repeat="item in sparqlResults">
-                    <td>{{item.count}}</td>
-                    <td>{{item.p}}</td>
+                    <td ng-repeat="col in colSparqlResults">{{item[col]}}</td>
                 </tr>
             </tbody>
         </table>
