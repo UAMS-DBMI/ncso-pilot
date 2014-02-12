@@ -79,6 +79,10 @@ body {
   }
 }
 
+h3 {
+    margin-bottom: 40px;
+}
+
 .sparql-div {
     float:left;
     margin-left: auto;
@@ -88,6 +92,8 @@ body {
     border-width: 2px;
     border-style: solid;
     border-color: darkgrey;
+    height: 950px;
+    overflow: auto;
 }
 
 .sql-div {
@@ -99,7 +105,8 @@ body {
     border-width: 2px;
     border-style: solid;
     border-color: darkgrey;
-
+    height: 950px;
+    overflow: auto;
 }
 
 .sparql-div h4 {
@@ -115,9 +122,9 @@ body {
     text-align: left;
 }
 
-
 .results {
     width: 100%;
+    margin-top:35px;
     margin-left: auto;
     margin-right: auto;
     min-height: 200px;
