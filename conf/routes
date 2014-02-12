@@ -3,17 +3,25 @@
 # ~~~~
 
 # NCSO API
-GET         /getcurrentapis                     controllers.NCSOAPI.listCurrentAPIS
-GET         /testsesameconnection               controllers.NCSOAPI.sesameConnectionTest
+GET        /getcurrentapis                                      controllers.NCSOAPI.listCurrentAPIS
+GET        /testsesameconnection                                controllers.NCSOAPI.sesameConnectionTest
+GET        /getGeneralHealthMetricsForAllParticipants           controllers.NCSOAPI.getGeneralHealthMetricsForAllParticipants
+GET        /getParticipantsInNonSmokingHouseholds               controllers.NCSOAPI.getParticipantsInNonSmokingHouseholds
+GET        /getParticipantsInSmokingHouseholds                  controllers.NCSOAPI.getParticipantsInSmokingHouseholds
+GET        /getGeneralHealthMetricsForNonSmokingHouseholds      controllers.NCSOAPI.getGeneralHealthMetricsForNonSmokingHouseholds
+GET        /getGeneralHealthMetricsForSmokingHouseHolds         controllers.NCSOAPI.getGeneralHealthMetricsForSmokingHouseHolds
+GET        /getGeneralHealthMetricsForParticipantsInSmokingHouseholdsLessThanFifteenBMI     controllers.NCSOAPI.getGeneralHealthMetricsForParticipantsInSmokingHouseholdsLessThanFifteenBMI
+GET        /getGeneralHealthAndSurrogateDataForAllParticipants  controllers.NCSOAPI.getGeneralHealthAndSurrogateDataForAllParticipants
+GET        /getGeneralHealthDataForAllParticipants              controllers.NCSOAPI.getGeneralHealthDataForAllParticipants
 
 # Route to Angular.js App static dist files
-GET         /demo               controllers.Assets.at(path="/public", file="/javascripts/dist/index.html")
+GET        /demo                        controllers.Assets.at(path="/public", file="/javascripts/dist/index.html")
 
 # Below is Angular.js specific routing so I can have the above root path.
-GET         /styles/*file               controllers.Assets.at(path="/public/javascripts/dist/styles", file)
-GET         /scripts/*file              controllers.Assets.at(path="/public/javascripts/dist/scripts", file)
-GET         /views/*file                controllers.Assets.at(path="/public/javascripts/dist/views", file)
-GET         /images/*file               controllers.Assets.at(path="/public/javascripts/dist/images", file)
+GET        /styles/*file                controllers.Assets.at(path="/public/javascripts/dist/styles", file)
+GET        /scripts/*file               controllers.Assets.at(path="/public/javascripts/dist/scripts", file)
+GET        /views/*file                 controllers.Assets.at(path="/public/javascripts/dist/views", file)
+GET        /images/*file                controllers.Assets.at(path="/public/javascripts/dist/images", file)
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file               controllers.Assets.at(path="/public", file)
+GET        /assets/*file                controllers.Assets.at(path="/public", file)
