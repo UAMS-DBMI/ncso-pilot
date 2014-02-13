@@ -24,7 +24,7 @@ object SesameSparql2Json {
     * @param repositoryID The name of the repository
     */
   def openConnection (serverUrl: String, repositoryID: String) = {
-    repository = new StardogRepository(ConnectionConfiguration.from("http://144.30.109.153/ncso").credentials("admin", "admin"))
+    repository = new StardogRepository(ConnectionConfiguration.from("http://144.30.12.7/ncso").credentials("admin", "admin"))
 
     // repository = new HTTPRepository(serverUrl, repositoryID)
     repository.initialize()
@@ -61,7 +61,11 @@ object SesameSparql2Json {
       val next = result.next
       val rowMap: scala.collection.mutable.Map[String, String] = scala.collection.mutable.HashMap[String, String]()
       for (name: String <- bindingNames) {
-        rowMap(name) = next.getValue(name).stringValue()
+        if(next.getValue(name) != null){ //value returned can be null
+          rowMap(name) = next.getValue(name).stringValue()
+        } else {
+          rowMap(name) = ""
+        }
       }
       resultList = rowMap.toMap :: resultList
     }
@@ -92,7 +96,11 @@ object SesameSparql2Json {
     while(result.hasNext) {
       val next = result.next
       for (name: String <- bindingNames) {
-        resultMap(name) = next.getValue(name).stringValue() ::  resultMap.getOrElse(name , List[String]())
+        if(next.getValue(name) != null){ //value returned can be null
+          resultMap(name) = next.getValue(name).stringValue() ::  resultMap.getOrElse(name , List[String]())
+        } else {
+          resultMap(name) = "" ::  resultMap.getOrElse(name , List[String]())
+        }
       }
     }
     con.close()
