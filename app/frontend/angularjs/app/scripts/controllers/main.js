@@ -10,7 +10,8 @@ angular.module('ncsoDemo')
 
       objectListPromise.then(
         function (data) {
-          $scope.apiList = data.data.currentAPIs;
+          $scope.apiList = data.data;
+          $scope.apiKeys = Object.keys($scope.apiList)
         }, function (err) {
           console.log('Error !' + err);
         }
@@ -19,6 +20,7 @@ angular.module('ncsoDemo')
 
 
     $scope.apiList = [];
+    $scope.apiKeys = [];
     $scope.ncsodemoURL = $location.absUrl();
 
     getJsonData(serviceURL + 'getcurrentapis');

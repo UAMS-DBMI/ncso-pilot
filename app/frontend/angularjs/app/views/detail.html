@@ -11,29 +11,26 @@
 
 <div class="content" ng-app='ncsoDemo' ng-controller='APIDetailView' class="">
 
-    <h3>Detail View of {{apiName}}</h3>
+    <h3>{{apiPrettyName}}</h3>
+    <div class="explanation">
+        <h5>Explanation:</h5>
+        <p>{{explanationText}}</p>
+    </div>
 
     <div class="sparql-div">
         <h4>SPARQL</h4>
         <div class="query">
-            <pre class="prettyprint">
-                {{sparqlQuery}}
-            </pre>
+            <pre class="prettyprint">{{sparqlQuery}}</pre>
         </div>
 
-        <div class="explanation">
-            <h5>Explanation:</h5>
-            <p>{{explanationText}}</p>
-        </div>
+        
     </div>
 
     <div class="sql-div">
         <h4>SQL</h4>
 
         <div class="query">
-             <pre class="prettyprint">
-                {{sqlQuery}}
-             </pre>
+             <pre class="prettyprint">{{sqlQuery}}</pre>
         </div>
 
         <div class="explanation">

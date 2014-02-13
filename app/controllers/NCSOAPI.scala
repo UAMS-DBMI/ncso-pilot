@@ -13,13 +13,21 @@ import models.SesameSparql2Json._
 
 object NCSOAPI extends Controller {
     val sesameUrl = "http://144.30.12.10:8080/openrdf-sesame"
-    val repoID = "NCSOD"
+    val repoID = "NCSODT"
     val sesamePrefixes = "PREFIX dc:<http://purl.org/dc/elements/1.1/>\nPREFIX PATO:<http://purl.org/obo/owl/PATO#>\nPREFIX :<http://www.ifomis.org/bfo/1.1#>\nPREFIX ro:<http://www.obofoundry.org/ro/ro.owl#>\nPREFIX protege:<http://protege.stanford.edu/plugins/owl/protege#>\nPREFIX ncso2:<http://www.semanticweb.org/semanticweb.org/ncso/>\nPREFIX UO:<http://purl.org/obo/owl/UO#>\nPREFIX ncso3:<http://purl.obolibrary.org/obo/ncso/dev/ncso.owl/>\nPREFIX snap:<http://www.ifomis.org/bfo/1.1/snap#>\nPREFIX bfo:<http://www.ifomis.org/bfo/1.1#>\nPREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>\nPREFIX obo:<http://purl.obolibrary.org/obo/>\nPREFIX obo2:<http://purl.obolibrary.org/obo#>\nPREFIX psys:<http://proton.semanticweb.org/protonsys#>\nPREFIX ncso:<http://www.semanticweb.org/ncso/>\nPREFIX xsd:<http://www.w3.org/2001/XMLSchema#>\nPREFIX owl:<http://www.w3.org/2002/07/owl#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX pext:<http://proton.semanticweb.org/protonext#>\nPREFIX OBO_REL:<http://purl.org/obo/owl/OBO_REL#>\nPREFIX oboInOwl:<http://www.geneontology.org/formats/oboInOwl#>\nPREFIX span:<http://www.ifomis.org/bfo/1.1/span#>  "
-    val list_of_APIS = List("testsesameconnection", "getGeneralHealthMetricsForAllParticipants", "getParticipantsInNonSmokingHouseholds", "getParticipantsInSmokingHouseholds", "getGeneralHealthMetricsForNonSmokingHouseholds", "getGeneralHealthMetricsForSmokingHouseHolds", "getGeneralHealthMetricsForParticipantsInSmokingHouseholdsLessThanFifteenBMI", "getGeneralHealthAndSurrogateDataForAllParticipants", "getGeneralHealthDataForAllParticipants" )
+    val mapOfAPIs = Map("Simple Test Query" -> "testsesameconnection",
+      "General health metrics for all participants" -> "getGeneralHealthMetricsForAllParticipants",
+      "Participants in non-smoking households" -> "getParticipantsInNonSmokingHouseholds",
+      "Participants in smoking households" -> "getParticipantsInSmokingHouseholds",
+      "General health metrics for non-smoking households" -> "getGeneralHealthMetricsForNonSmokingHouseholds",
+      "General health metrics for smoking households" -> "getGeneralHealthMetricsForSmokingHouseHolds",
+      "General health metrics for participants with a BMI of less than 15 in smoking households" -> "getGeneralHealthMetricsForParticipantsInSmokingHouseholdsLessThanFifteenBMI",
+      "General health surrogate data for all participants" -> "getGeneralHealthAndSurrogateDataForAllParticipants",
+      "Participants with general health surrogate data" -> "getGeneralHealthDataForAllParticipants" )
 
     def listCurrentAPIS = WithCors("GET") {
       Action {
-        Ok(Json.toJson(Map("currentAPIs" -> Json.toJson(list_of_APIS))))
+        Ok(Json.toJson(Json.toJson(mapOfAPIs)))
       }
     }
 
@@ -47,9 +55,9 @@ object NCSOAPI extends Controller {
 
     def getGeneralHealthMetricsForAllParticipants = WithCors("GET") {
       Action {
-        val sparqlQuery = "select distinct ?participant ?participantID ?bmi ?weight ?height\n{\n    ?participant rdf:type <http://www.semanticweb.org/semanticweb.org/ncso/NCSO_00000085> ;\n                 rdfs:label ?participantID .\n   \n    ?lengthData obo:IAO_0000136 ?participant ;\n                rdf:type obo:NCSO_00000012 ;\n                obo:OBI_0001938 [\n                    obo:OBI_0001937 ?lengthValue ;\n                    obo:IAO_0000039 [ rdfs:label ?lengthUnitLabel ] ;\n                ] .\n   \n    ?weightData obo:IAO_0000136 ?participant ;\n                rdf:type obo:NCSO_00000024 ;\n                obo:OBI_0001938 [\n                    obo:OBI_0001937 ?weightValue ;\n                    obo:IAO_0000039 [ rdfs:label ?weightUnitLabel ] ;\n                ] .\n   \n    ?bmiData obo:IAO_0000136 ?weightData ;\n             obo:IAO_0000136 ?heightData ;\n             obo:OBI_0001938 [ obo:OBI_0001937 ?bmi ] .\n   \n    bind(concat(?weightValue, ' ', ?weightUnitLabel, 's') AS ?weight) #pretty printing of the weight\n    bind(concat(?lengthValue, ' ', ?lengthUnitLabel, 's') AS ?height) #pretty printing of the height\n}".replace("\u00A0", " ")
+        val sparqlQuery = "select distinct ?participantID ?bmi ?weight ?height\n{\n    ?participant rdf:type <http://www.semanticweb.org/semanticweb.org/ncso/NCSO_00000085> ;\n                 rdfs:label ?participantID .\n   \n    ?lengthData obo:IAO_0000136 ?participant ;\n                rdf:type obo:NCSO_00000012 ;\n                obo:OBI_0001938 [\n                    obo:OBI_0001937 ?lengthValue ;\n                    obo:IAO_0000039 [ rdfs:label ?lengthUnitLabel ] ;\n                ] .\n   \n    ?weightData obo:IAO_0000136 ?participant ;\n                rdf:type obo:NCSO_00000024 ;\n                obo:OBI_0001938 [\n                    obo:OBI_0001937 ?weightValue ;\n                    obo:IAO_0000039 [ rdfs:label ?weightUnitLabel ] ;\n                ] .\n   \n    ?bmiData obo:IAO_0000136 ?weightData ;\n             obo:IAO_0000136 ?heightData ;\n             obo:OBI_0001938 [ obo:OBI_0001937 ?bmi ] .\n   \n    bind(concat(?weightValue, ' ', ?weightUnitLabel, 's') AS ?weight) #pretty printing of the weight\n    bind(concat(?lengthValue, ' ', ?lengthUnitLabel, 's') AS ?height) #pretty printing of the height\n}".replace("\u00A0", " ")
         val sqlQuery = "SELECT noreally.id FROM TODO as noreally inner join thisIsAPlaceHolder ifyouhaventnoticedyet on noreally.id = thisIsAPlaceHolder.id"
-        val explanation = "BMI, Weight, and Height for all participants."
+        val explanation = "This query gets the ID, the BMI, the weight, and the height of all participants in the study."
 
         SesameSparql2Json.openConnection(sesameUrl, repoID)
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery)
@@ -70,9 +78,9 @@ object NCSOAPI extends Controller {
 
     def getParticipantsInNonSmokingHouseholds = WithCors("GET") {
       Action {
-        val sparqlQuery = "select distinct ?participant ?participantID\n{\n    ?participant rdf:type <http://www.semanticweb.org/semanticweb.org/ncso/NCSO_00000085> ;\n                 rdfs:label ?participantID ;\n                 ^obo:IAO_0000136 ?VS .\n    ?VS rdf:type [\n        rdfs:subClassOf [\n            owl:onProperty obo:OBI_0001927 ;\n            owl:someValuesFrom obo:NCSO_00000051\n        ] ;\n        rdfs:label ?VSLabel\n    ]\n     \n    FILTER NOT EXISTS { #filter out those who are have been in smoker households\n        ?participant ^obo:IAO_0000136 [\n            rdf:type [\n                rdfs:subClassOf [\n                    owl:onProperty obo:OBI_0001927 ;\n                    owl:someValuesFrom obo:NCSO_00000050\n                ]\n            ]     \n        ]\n    }\n}".replace("\u00A0", " ")
+        val sparqlQuery = "select distinct ?participantID\n{\n    ?participant rdf:type <http://www.semanticweb.org/semanticweb.org/ncso/NCSO_00000085> ;\n                 rdfs:label ?participantID ;\n                 ^obo:IAO_0000136 ?VS .\n    ?VS rdf:type [\n        rdfs:subClassOf [\n            owl:onProperty obo:OBI_0001927 ;\n            owl:someValuesFrom obo:NCSO_00000051\n        ] ;\n        rdfs:label ?VSLabel\n    ]\n     \n    FILTER NOT EXISTS { #filter out those who are have been in smoker households\n        ?participant ^obo:IAO_0000136 [\n            rdf:type [\n                rdfs:subClassOf [\n                    owl:onProperty obo:OBI_0001927 ;\n                    owl:someValuesFrom obo:NCSO_00000050\n                ]\n            ]     \n        ]\n    }\n}".replace("\u00A0", " ")
         val sqlQuery = "SELECT noreally.id FROM TODO as noreally inner join thisIsAPlaceHolder ifyouhaventnoticedyet on noreally.id = thisIsAPlaceHolder.id"
-        val explanation = "BMI, Weight, and Height for all participants."
+        val explanation = "This query returns all participants who are in a household that contains no smokers."
 
         SesameSparql2Json.openConnection(sesameUrl, repoID)
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery)
@@ -95,7 +103,7 @@ object NCSOAPI extends Controller {
       Action {
         val sparqlQuery = "select distinct ?participant ?participantID\n{\n    ?participant rdf:type <http://www.semanticweb.org/semanticweb.org/ncso/NCSO_00000085> ;\n                 rdfs:label ?participantID ;\n                 ^obo:IAO_0000136 ?VS .\n    ?VS rdf:type [\n        rdfs:subClassOf [\n            owl:onProperty obo:OBI_0001927 ;\n            owl:someValuesFrom obo:NCSO_00000051\n        ] ;\n        rdfs:label ?VSLabel\n    ]\n}"
         val sqlQuery = "SELECT noreally.id FROM TODO as noreally inner join thisIsAPlaceHolder ifyouhaventnoticedyet on noreally.id = thisIsAPlaceHolder.id"
-        val explanation = "BMI, Weight, and Height for all participants."
+        val explanation = "This query returns all participants who are in a household that contains at least one smoker."
 
         SesameSparql2Json.openConnection(sesameUrl, repoID)
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery)
@@ -118,7 +126,7 @@ object NCSOAPI extends Controller {
       Action {
         val sparqlQuery = "select distinct ?participantID ?bmi ?weight ?height\n{\n    ?participant rdf:type <http://www.semanticweb.org/semanticweb.org/ncso/NCSO_00000085> ;\n                 rdfs:label ?participantID .\n   \n    ?lengthData obo:IAO_0000136 ?participant ;\n                rdf:type obo:NCSO_00000012 ;\n                obo:OBI_0001938 [\n                    obo:OBI_0001937 ?lengthValue ;\n                    obo:IAO_0000039 [ rdfs:label ?lengthUnitLabel ] ;\n                ] .\n   \n    ?weightData obo:IAO_0000136 ?participant ;\n                rdf:type obo:NCSO_00000024 ;\n                obo:OBI_0001938 [\n                    obo:OBI_0001937 ?weightValue ;\n                    obo:IAO_0000039 [ rdfs:label ?weightUnitLabel ] ;\n                ] .\n   \n    ?bmiData obo:IAO_0000136 ?weightData ;\n             obo:IAO_0000136 ?heightData ;\n             obo:OBI_0001938 [ obo:OBI_0001937 ?bmi ] .\n   \n    bind(concat(?weightValue, ' ', ?weightUnitLabel, 's') AS ?weight) #pretty printing of the weight\n    bind(concat(?lengthValue, ' ', ?lengthUnitLabel, 's') AS ?height) #pretty printing of the height\n     \n    ?participant ^obo:IAO_0000136 ?VS .\n    ?VS rdf:type [\n        rdfs:subClassOf [\n            owl:onProperty obo:OBI_0001927 ;\n            owl:someValuesFrom obo:NCSO_00000051\n        ] ;\n        rdfs:label ?VSLabel\n    ]\n}"
         val sqlQuery = "SELECT noreally.id FROM TODO as noreally inner join thisIsAPlaceHolder ifyouhaventnoticedyet on noreally.id = thisIsAPlaceHolder.id"
-        val explanation = "BMI, Weight, and Height for all participants."
+        val explanation = "This query returns the BMI, weight, and height of all participants who are in a household with no smokers."
 
         SesameSparql2Json.openConnection(sesameUrl, repoID)
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery)
@@ -141,7 +149,7 @@ object NCSOAPI extends Controller {
       Action {
         val sparqlQuery = "select distinct ?participantID ?bmi ?weight ?height\n{\n    ?participant rdf:type <http://www.semanticweb.org/semanticweb.org/ncso/NCSO_00000085> ;\n                 rdfs:label ?participantID .\n   \n    ?lengthData obo:IAO_0000136 ?participant ;\n                rdf:type obo:NCSO_00000012 ;\n                obo:OBI_0001938 [\n                    obo:OBI_0001937 ?lengthValue ;\n                    obo:IAO_0000039 [ rdfs:label ?lengthUnitLabel ] ;\n                ] .\n   \n    ?weightData obo:IAO_0000136 ?participant ;\n                rdf:type obo:NCSO_00000024 ;\n                obo:OBI_0001938 [\n                    obo:OBI_0001937 ?weightValue ;\n                    obo:IAO_0000039 [ rdfs:label ?weightUnitLabel ] ;\n                ] .\n   \n    ?bmiData obo:IAO_0000136 ?weightData ;\n             obo:IAO_0000136 ?heightData ;\n             obo:OBI_0001938 [ obo:OBI_0001937 ?bmi ] .\n   \n    bind(concat(?weightValue, ' ', ?weightUnitLabel, 's') AS ?weight) #pretty printing of the weight\n    bind(concat(?lengthValue, ' ', ?lengthUnitLabel, 's') AS ?height) #pretty printing of the height\n     \n    ?participant ^obo:IAO_0000136 [\n        rdf:type [\n            rdfs:subClassOf [\n                owl:onProperty obo:OBI_0001927 ;\n                owl:someValuesFrom obo:NCSO_00000050\n            ]\n        ]\n    ] .\n}"
         val sqlQuery = "SELECT noreally.id FROM TODO as noreally inner join thisIsAPlaceHolder ifyouhaventnoticedyet on noreally.id = thisIsAPlaceHolder.id"
-        val explanation = "BMI, Weight, and Height for all participants."
+        val explanation = "This query returns the BMI, weight, and height of all participants that are in a household that contains at least one smoker."
 
         SesameSparql2Json.openConnection(sesameUrl, repoID)
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery)
@@ -164,7 +172,7 @@ object NCSOAPI extends Controller {
       Action {
         val sparqlQuery = "select distinct ?participant ?participantID ?bmi ?weight ?height\n{\n    ?participant rdf:type <http://www.semanticweb.org/semanticweb.org/ncso/NCSO_00000085> ;\n                 rdfs:label ?participantID .\n   \n    ?lengthData obo:IAO_0000136 ?participant ;\n                rdf:type obo:NCSO_00000012 ;\n                obo:OBI_0001938 [\n                    obo:OBI_0001937 ?lengthValue ;\n                    obo:IAO_0000039 [ rdfs:label ?lengthUnitLabel ] ;\n                ] .\n   \n    ?weightData obo:IAO_0000136 ?participant ;\n                rdf:type obo:NCSO_00000024 ;\n                obo:OBI_0001938 [\n                    obo:OBI_0001937 ?weightValue ;\n                    obo:IAO_0000039 [ rdfs:label ?weightUnitLabel ] ;\n                ] .\n   \n    ?bmiData obo:IAO_0000136 ?weightData ;\n             obo:IAO_0000136 ?heightData ;\n             obo:OBI_0001938 [ obo:OBI_0001937 ?bmi ] .\n   \n    bind(concat(?weightValue, ' ', ?weightUnitLabel, 's') AS ?weight) #pretty printing of the weight\n    bind(concat(?lengthValue, ' ', ?lengthUnitLabel, 's') AS ?height) #pretty printing of the height\n     \n     \n    ?participant ^obo:IAO_0000136 [\n        rdf:type [\n            rdfs:subClassOf [\n                owl:onProperty obo:OBI_0001927 ;\n                owl:someValuesFrom obo:NCSO_00000051\n            ]\n        ]\n    ] .\n   \n    FILTER NOT EXISTS { #filter out those who are have been in smoker households\n        ?participant ^obo:IAO_0000136 [\n            rdf:type [\n                rdfs:subClassOf [\n                    owl:onProperty obo:OBI_0001927 ;\n                    owl:someValuesFrom obo:NCSO_00000050\n                ]\n            ]\n        ]\n    }\n   \n    FILTER(xsd:float(?bmi) < 15) #filter out those with a bmi > 15        \n}"
         val sqlQuery = "SELECT noreally.id FROM TODO as noreally inner join thisIsAPlaceHolder ifyouhaventnoticedyet on noreally.id = thisIsAPlaceHolder.id"
-        val explanation = "BMI, Weight, and Height for all participants."
+        val explanation = "This query returns all participants who have a BMI that is less than 15 and live in a household which contains at least one smoker."
 
         SesameSparql2Json.openConnection(sesameUrl, repoID)
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery)
@@ -187,7 +195,7 @@ object NCSOAPI extends Controller {
       Action {
         val sparqlQuery = "select distinct ?participantID ?surDataLabel ?surrogateValue ?surrogateLabel\n{\n    ?participant rdf:type <http://www.semanticweb.org/semanticweb.org/ncso/NCSO_00000085> ;\n                 rdfs:label ?participantID .\n     \n    <http://purl.obolibrary.org/obo/NCSO.owl/EXPOSD_00000002> owl:equivalentClass/owl:unionOf/rdf:first*/rdf:rest*/rdf:first/owl:someValuesFrom ?surDataClass .\n    ?surDataClass rdfs:label ?surDataLabel .\n    ?surrogateData rdf:type ?surDataClass ;\n                   obo:OBI_0001938/obo:OBI_0001937 ?surrogateValue ;\n                   obo:IAO_0000136 ?participant\n    OPTIONAL { ?surrogateData obo:OBI_0001938/obo:IAO_0000039/rdfs:label ?surrogateLabel  }\n   \n}"
         val sqlQuery = "SELECT noreally.id FROM TODO as noreally inner join thisIsAPlaceHolder ifyouhaventnoticedyet on noreally.id = thisIsAPlaceHolder.id"
-        val explanation = "BMI, Weight, and Height for all participants."
+        val explanation = "This query returns all data that is annotated as being a surrogate for general health."
 
         SesameSparql2Json.openConnection(sesameUrl, repoID)
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery)
@@ -210,7 +218,7 @@ object NCSOAPI extends Controller {
       Action {
         val sparqlQuery = "select distinct ?participantID ?surDataLabel\n{\n    ?participant rdf:type <http://www.semanticweb.org/semanticweb.org/ncso/NCSO_00000085> ;\n                 rdfs:label ?participantID .\n     \n    <http://purl.obolibrary.org/obo/NCSO.owl/EXPOSD_00000002> owl:equivalentClass/owl:unionOf/rdf:first*/rdf:rest*/rdf:first/owl:someValuesFrom ?surDataClass .\n    ?surDataClass rdfs:label ?surDataLabel .\n     \n}"
         val sqlQuery = "SELECT noreally.id FROM TODO as noreally inner join thisIsAPlaceHolder ifyouhaventnoticedyet on noreally.id = thisIsAPlaceHolder.id"
-        val explanation = "BMI, Weight, and Height for all participants."
+        val explanation = "This query returns all participants that have data associated with them that is annotated as being a surrogate for general health, along with the actual type of the data."
 
         SesameSparql2Json.openConnection(sesameUrl, repoID)
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery)
