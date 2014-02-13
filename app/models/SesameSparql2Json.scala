@@ -7,6 +7,10 @@ import org.openrdf.query.{TupleQueryResult, QueryLanguage}
 import collection.JavaConversions._
 import play.api.libs.json.JsValue
 import play.api.libs.json._
+import com.complexible.stardog.sesame.StardogRepository
+import com.complexible.stardog.api.ConnectionConfiguration
+
+
 
 object SesameSparql2Json {
   // TODO: try to use something other than null
@@ -20,7 +24,9 @@ object SesameSparql2Json {
     * @param repositoryID The name of the repository
     */
   def openConnection (serverUrl: String, repositoryID: String) = {
-    repository = new HTTPRepository(serverUrl, repositoryID)
+    repository = new StardogRepository(ConnectionConfiguration.from("http://144.30.109.153/ncso").credentials("admin", "admin"))
+
+    // repository = new HTTPRepository(serverUrl, repositoryID)
     repository.initialize()
   }
 
