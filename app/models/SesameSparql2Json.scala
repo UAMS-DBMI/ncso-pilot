@@ -13,22 +13,9 @@ import com.complexible.stardog.api.ConnectionConfiguration
 
 
 object SesameSparql2Json {
-  // TODO: try to use something other than null
-  private var repository : Repository = null
+  private var repository : Repository = new StardogRepository(ConnectionConfiguration.to("ncso").credentials("admin", "admin").server("snarl://144.30.12.7"))
 
-  /**
-    * Initialize the connection with a sesame server connection
-    * with the inputted parameters
-    *
-    * @param serverUrl The url location of the sesame server
-    * @param repositoryID The name of the repository
-    */
-  def openConnection (serverUrl: String, repositoryID: String) = {
-    repository = new StardogRepository(ConnectionConfiguration.to("ncso").credentials("admin", "admin").server("http://144.30.12.7"))
-
-    // repository = new HTTPRepository(serverUrl, repositoryID)
-    repository.initialize()
-  }
+  repository.initialize()
 
   /**
     * Close connection with the sesame server
