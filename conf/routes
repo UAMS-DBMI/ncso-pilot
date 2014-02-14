@@ -12,7 +12,6 @@ GET        /getGeneralHealthMetricsForNonSmokingHouseholds      controllers.NCSO
 GET        /getGeneralHealthMetricsForSmokingHouseHolds         controllers.NCSOAPI.getGeneralHealthMetricsForSmokingHouseHolds
 GET        /getGeneralHealthMetricsForParticipantsInSmokingHouseholdsLessThanFifteenBMI     controllers.NCSOAPI.getGeneralHealthMetricsForParticipantsInSmokingHouseholdsLessThanFifteenBMI
 GET        /getGeneralHealthAndSurrogateDataForAllParticipants  controllers.NCSOAPI.getGeneralHealthAndSurrogateDataForAllParticipants
-GET        /getGeneralHealthDataForAllParticipants              controllers.NCSOAPI.getGeneralHealthDataForAllParticipants
 
 # Route to Angular.js App static dist files
 GET        /demo                        controllers.Assets.at(path="/public", file="/javascripts/dist/index.html")
