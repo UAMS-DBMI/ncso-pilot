@@ -24,7 +24,7 @@ object SesameSparql2Json {
     * @param repositoryID The name of the repository
     */
   def openConnection (serverUrl: String, repositoryID: String) = {
-    repository = new StardogRepository(ConnectionConfiguration.from("http://144.30.12.7/ncso").credentials("admin", "admin"))
+    repository = new StardogRepository(ConnectionConfiguration.to("ncso").credentials("admin", "admin").server("http://144.30.12.7"))
 
     // repository = new HTTPRepository(serverUrl, repositoryID)
     repository.initialize()

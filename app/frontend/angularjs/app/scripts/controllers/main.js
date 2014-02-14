@@ -3,7 +3,7 @@
 angular.module('ncsoDemo')
   .controller('LandingPage', function ($scope, $http, $location) {
     // TODO: extract the below url to a config file
-    var serviceURL = 'http://localhost:9000/';
+    var serviceURL = 'http://144.30.109.153:9000/';
 
     function getJsonData (JSONURL) {
       var objectListPromise = $http({method: 'GET', url: JSONURL});
