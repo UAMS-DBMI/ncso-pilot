@@ -37,7 +37,6 @@ object NCSOAPI extends Controller {
         val explanation = "Let P be a connected, weighted graph. At every iteration of Prim's algorithm, an edge must be found that connects a vertex in a subgraph to a vertex outside the subgraph. Since P is connected, there will always be a path to every vertex. The output Y of Prim's algorithm is a tree, because the edge and vertex added to tree Y are connected. Let Y1 be a minimum spanning tree of graph P. If Y1=Y then Y is a minimum spanning tree. Otherwise, let e be the first edge added during the construction of tree Y that is not in tree Y1, and V be the set of vertices connected by the edges added before edge e. Then one endpoint of edge e is in set V and the other is not. Since tree Y1 is a spanning tree of graph P, there is a path in tree Y1 joining the two endpoints. As one travels along the path, one must encounter an edge f joining a vertex in set V to one that is not in set V. Now, at the iteration when edge e was added to tree Y, edge f could also have been added and it would be added instead of edge e if its weight was less than e, and since edge f was not added, we conclude that\nw(f)\\geq w(e).\nLet tree Y2 be the graph obtained by removing edge f from and adding edge e to tree Y1. It is easy to show that tree Y2 is connected, has the same number of edges as tree Y1, and the total weights of its edges is not larger than that of tree Y1, therefore it is also a minimum spanning tree of graph P and it contains edge e and all the edges added before it during the construction of set V. Repeat the steps above and we will eventually obtain a minimum spanning tree of graph P that is identical to tree Y. This shows Y is a minimum spanning tree."
 
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery)
-        val resultCols : Map[String, List[String]] = SesameSparql2Json.getResultColumnMapFromSPARQLQuery(sesamePrefixes + sparqlQuery)
 
         Ok(Json.toJson(
           Map(
@@ -57,7 +56,6 @@ object NCSOAPI extends Controller {
         val explanation = "Assume we need to find out all BMI, height, weight information for all NCS participants. This query returns the participant ID, the BMI, the weight, and the height of all participants in the study."
 
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
-        val resultCols : Map[String, List[String]] = SesameSparql2Json.getResultColumnMapFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
 
         Ok(Json.toJson(
           Map(
@@ -78,7 +76,6 @@ object NCSOAPI extends Controller {
         val explanation = "Assume we want to see all participants living in a non-smoking household, regardless of which instrument/variable to base the information on. This SPARQL query returns all participants who are in a household that contains no smokers at all. The comparative SQL query returns much of the data about nicotine exposure, but does not filter for those who do not live in a smoker household. To do so would require checking each data element against the corresponding code list and manually filtering."
 
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
-        val resultCols : Map[String, List[String]] = SesameSparql2Json.getResultColumnMapFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
 
         Ok(Json.toJson(
           Map(
@@ -99,7 +96,6 @@ object NCSOAPI extends Controller {
         val explanation = "Assume we want to see all participants living in a smoking household. Again, assume we want to take into consideration all answers given to a question about smoking behavior in the household regardless of the instrument and the variable. This SPARQL query returns all participants who are in a household that contains at least one smoker. Again, the comparative SQL query returns much of the data about nicotine exposure, but does not filter for those who live in a smoker household. To do so would require checking each data element against the corresponding code list and manually filtering."
 
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
-        val resultCols : Map[String, List[String]] = SesameSparql2Json.getResultColumnMapFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
 
         Ok(Json.toJson(
           Map(
@@ -120,7 +116,6 @@ object NCSOAPI extends Controller {
         val explanation = "Similarly, let's assume we want to retrieve the same data for non-smoking households. This query returns the BMI, weight, and height of all participants who are in a household with no smokers."
 
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
-        val resultCols : Map[String, List[String]] = SesameSparql2Json.getResultColumnMapFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
 
         Ok(Json.toJson(
           Map(
@@ -141,7 +136,6 @@ object NCSOAPI extends Controller {
         val explanation = "Assume we want to see all BMI, height, and weight information about participants that live in smoking households. This query returns the BMI, weight, and height of all participants that are in a household that contains at least one smoker."
 
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
-        val resultCols : Map[String, List[String]] = SesameSparql2Json.getResultColumnMapFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
 
         Ok(Json.toJson(
           Map(
@@ -162,7 +156,6 @@ object NCSOAPI extends Controller {
         val explanation = "Now, let's get deeper into finding cohorts. Assume we want to find all NCS participants that live in a smoking household and have a BMI less than 15. This query returns all participants who have a BMI that is less than 15 and live in a household which contains at least one smoker."
 
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
-        val resultCols : Map[String, List[String]] = SesameSparql2Json.getResultColumnMapFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
 
         Ok(Json.toJson(
           Map(
@@ -183,7 +176,6 @@ object NCSOAPI extends Controller {
         val explanation = "Assume we want to know whether there is general health surrogate data about NCS participants and what kind of general health surrogate data there is. This query returns all participants that have data associated with them that is annotated as being a surrogate for general health, along with the actual type of the data. This query allows checking what kind of data exists in the NCS data repository. A SQL query like this would be impossible at this time, since the MDES do not have any information about what is general health surrogate data. While this could be resolved, the ontology provides the means to add and delete data from being considered general health surrogate data in a flexible and maintainable manner, without the need to change the data per se."
 
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
-        val resultCols : Map[String, List[String]] = SesameSparql2Json.getResultColumnMapFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
 
         Ok(Json.toJson(
           Map(
