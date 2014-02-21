@@ -22,7 +22,16 @@
         <div class="query">
             <pre class="prettyprint">{{sparqlQuery}}</pre>
         </div>
-
+	<div class="query-legend">
+	  <h5>Sparql Legend</h5>
+	 
+	  <div ng-hide="sparqlLegend != 'No sparqlLegend yet'">{{sparqlLegend}}</div>
+	  <ul>
+	    <li ng-repeat="(col, explanation) in sparqlLegend">
+	      {{col}} : {{explanation}}
+	    </li>
+	  </ul>
+	</div>
         
     </div>
 
@@ -32,10 +41,14 @@
         <div class="query">
              <pre class="prettyprint">{{sqlQuery}}</pre>
         </div>
+	  <h5>Sql Legend</h5>
 
-        <div class="explanation">
-        </div>
-
+	  <div ng-hide="sqlLegend != 'No sqlLegend yet'">{{sqlLegend}}</div>
+	  <ul>
+	    <li ng-repeat="(col, explanation) in sqlLegend">
+	      {{col}} : {{explanation}}
+	    </li>
+	 </ul>
     </div>
 
 

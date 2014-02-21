@@ -155,6 +155,18 @@ object NCSOAPI extends Controller {
         val sqlQuery = "Still in progress"
         val explanation = "Now, let's get deeper into finding cohorts. Assume we want to find all NCS participants that live in a smoking household and have a BMI less than 15. This query returns all participants who have a BMI that is less than 15 and live in a household which contains at least one smoker."
 
+        val sparqlLegend = Map(
+          "fakeIRI" -> "TODO: Put explanation text",
+          "fakeIRI2" -> "TODO: Put explanation text 2",
+          "fakeIRI3" -> "TODO: Put explanation text 3"
+        )
+
+        val sqlLegend = Map(
+          "fake_col" -> "TODO: Put explanation text",
+          "fake_col 2" -> "TODO: Put explanation text 2",
+          "fake_col 3" -> "TODO: Put explanation text 3"
+        )
+
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
 
         Ok(Json.toJson(
@@ -162,7 +174,9 @@ object NCSOAPI extends Controller {
             "sparqlQuery" -> Json.toJson(sparqlQuery),
             "sparqlResults" -> Json.toJson(resultRows),
             "sqlQuery" -> Json.toJson(sqlQuery),
-            "explanation" -> Json.toJson(explanation)
+            "explanation" -> Json.toJson(explanation),
+            "sqlLegend" -> Json.toJson(sqlLegend),
+            "sparqlLegend" -> Json.toJson(sparqlLegend)
           )
         ))
 
@@ -175,6 +189,18 @@ object NCSOAPI extends Controller {
         val sqlQuery = "We know of no equivalent SQL query."
         val explanation = "Assume we want to know whether there is general health surrogate data about NCS participants and what kind of general health surrogate data there is. This query returns all participants that have data associated with them that is annotated as being a surrogate for general health, along with the actual type of the data. This query allows checking what kind of data exists in the NCS data repository. A SQL query like this would be impossible at this time, since the MDES do not have any information about what is general health surrogate data. While this could be resolved, the ontology provides the means to add and delete data from being considered general health surrogate data in a flexible and maintainable manner, without the need to change the data per se."
 
+        val sparqlLegend = Map(
+          "fakeIRI" -> "TODO: Put explanation text",
+          "fakeIRI2" -> "TODO: Put explanation text 2",
+          "fakeIRI3" -> "TODO: Put explanation text 3"
+        )
+
+        val sqlLegend = Map(
+          "fake_col" -> "TODO: Put explanation text",
+          "fake_col 2" -> "TODO: Put explanation text 2",
+          "fake_col 3" -> "TODO: Put explanation text 3"
+        )
+
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
 
         Ok(Json.toJson(
@@ -182,7 +208,9 @@ object NCSOAPI extends Controller {
             "sparqlQuery" -> Json.toJson(sparqlQuery),
             "sparqlResults" -> Json.toJson(resultRows),
             "sqlQuery" -> Json.toJson(sqlQuery),
-            "explanation" -> Json.toJson(explanation)
+            "explanation" -> Json.toJson(explanation), 
+            "sqlLegend" -> Json.toJson(sqlLegend),
+            "sparqlLegend" -> Json.toJson(sparqlLegend)
           )
         ))
 

@@ -3,7 +3,7 @@
 angular.module('ncsoDemo')
     .controller('APIDetailView', function ($scope, $http, $location, $routeParams) {
       // TODO: extract the below url to a config file
-      var serviceURL = 'http://144.30.12.7:9000/';
+      var serviceURL = 'http://localhost:9000/';
       $scope.apiName = $routeParams.route;
       $scope.apiPrettyName = $routeParams.prettyName;
 
@@ -24,6 +24,8 @@ angular.module('ncsoDemo')
             $scope.sparqlResults = data.data.sparqlResults;
             $scope.colSparqlResults = Object.getOwnPropertyNames($scope.sparqlResults[0]);
             $scope.explanationText = data.data.explanation;
+            $scope.sqlLegend = data.data.sqlLegend || 'No sqlLegend yet';
+            $scope.sparqlLegend = data.data.sparqlLegend || 'No sparqlLegend yet';
           }, function (err) {
             console.log('Error !' + err);
           }
