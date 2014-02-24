@@ -11,7 +11,6 @@ angular.module('ncsoDemo')
       objectListPromise.then(
         function (data) {
           $scope.apiList = data.data;
-          $scope.apiKeys = Object.keys($scope.apiList);
         }, function (err) {
           console.log('Error !' + err);
         }

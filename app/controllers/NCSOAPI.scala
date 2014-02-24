@@ -15,14 +15,15 @@ object NCSOAPI extends Controller {
     val sesameUrl = "http://144.30.12.10:8080/openrdf-sesame"
     val repoID = "NCSODT"
     val sesamePrefixes = "PREFIX dc:<http://purl.org/dc/elements/1.1/>\nPREFIX PATO:<http://purl.org/obo/owl/PATO#>\nPREFIX :<http://www.ifomis.org/bfo/1.1#>\nPREFIX ro:<http://www.obofoundry.org/ro/ro.owl#>\nPREFIX protege:<http://protege.stanford.edu/plugins/owl/protege#>\nPREFIX ncso2:<http://www.semanticweb.org/semanticweb.org/ncso/>\nPREFIX UO:<http://purl.org/obo/owl/UO#>\nPREFIX ncso3:<http://purl.obolibrary.org/obo/ncso/dev/ncso.owl/>\nPREFIX snap:<http://www.ifomis.org/bfo/1.1/snap#>\nPREFIX bfo:<http://www.ifomis.org/bfo/1.1#>\nPREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>\nPREFIX obo:<http://purl.obolibrary.org/obo/>\nPREFIX obo2:<http://purl.obolibrary.org/obo#>\nPREFIX psys:<http://proton.semanticweb.org/protonsys#>\nPREFIX ncso:<http://www.semanticweb.org/ncso/>\nPREFIX xsd:<http://www.w3.org/2001/XMLSchema#>\nPREFIX owl:<http://www.w3.org/2002/07/owl#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX pext:<http://proton.semanticweb.org/protonext#>\nPREFIX OBO_REL:<http://purl.org/obo/owl/OBO_REL#>\nPREFIX oboInOwl:<http://www.geneontology.org/formats/oboInOwl#>\nPREFIX span:<http://www.ifomis.org/bfo/1.1/span#>  "
-    val mapOfAPIs = Map(//"Simple Test Query" -> "testsesameconnection",
-      "BMI, height, and weight for all participants" -> "getGeneralHealthMetricsForAllParticipants",
-      "Participants in non-smoking households" -> "getParticipantsInNonSmokingHouseholds",
-      "Participants in smoking households" -> "getParticipantsInSmokingHouseholds",
-      "BMI, height, and weight for non-smoking households" -> "getGeneralHealthMetricsForNonSmokingHouseholds",
-      "BMI, height, and weight for smoking households" -> "getGeneralHealthMetricsForSmokingHouseHolds",
-      "BMI, height, and weight for participants with a BMI of less than 15 in smoking households" -> "getGeneralHealthMetricsForParticipantsInSmokingHouseholdsLessThanFifteenBMI",
-      "General health surrogate data for all participants" -> "getGeneralHealthAndSurrogateDataForAllParticipants")
+    val mapOfAPIs = List(
+      Map("BMI, height, and weight for all participants" -> "getGeneralHealthMetricsForAllParticipants"),
+      Map("Participants in smoking households" -> "getParticipantsInSmokingHouseholds"),
+      Map("BMI, height, and weight for smoking households" -> "getGeneralHealthMetricsForSmokingHouseHolds"),
+      Map("Participants in non-smoking households" -> "getParticipantsInNonSmokingHouseholds"),
+      Map("BMI, height, and weight for non-smoking households" -> "getGeneralHealthMetricsForNonSmokingHouseholds"),
+      Map("BMI, height, and weight for participants with a BMI of less than 15 in smoking households" -> "getGeneralHealthMetricsForParticipantsInSmokingHouseholdsLessThanFifteenBMI"),
+      Map("General health surrogate data for all participants" -> "getGeneralHealthAndSurrogateDataForAllParticipants")
+    )
 
     def listCurrentAPIS = WithCors("GET") {
       Action {

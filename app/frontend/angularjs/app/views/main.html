@@ -12,10 +12,10 @@
     <h3>Example Queries</h3>
 
     <div class="apilist">
-        <div class="api" ng-repeat="key in apiKeys">
-          
-            <a href="{{ncsodemoURL}}apidetail/?route={{apiList[key]}}&prettyName={{key}}">{{key}}</a>
-          
+        <div class="api" ng-repeat="map in apiList">
+	  <div ng-repeat="(key, value) in map">
+	    <a href="{{ncsodemoURL}}apidetail/?route={{value}}&prettyName={{key}}">{{key}}</a>
+	  </div>
         </div>
     </div>
 </div>
