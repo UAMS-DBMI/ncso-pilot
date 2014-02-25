@@ -8,60 +8,70 @@
 </div>
 
 
-
 <div class="content" ng-app='ncsoDemo' ng-controller='APIDetailView' class="">
 
     <h3>{{apiPrettyName}}</h3>
+
     <div class="explanation">
         <h5>Explanation:</h5>
+
         <p>{{explanationText}}</p>
     </div>
 
     <div class="sparql-div">
         <h4>SPARQL</h4>
+
+        <div ng-hide="sparqlLegend != 'No SPARQL legend yet'">{{sparqlLegend}}</div>
+        <h5 ng-hide="sparqlLegend == 'No SPARQL legend yet'">Legend</h5>
+
+        <table class="table well" ng-hide="sparqlLegend == 'No SPARQL legend yet'">
+            <tbody>
+            <tr ng-repeat="(col, explanation) in sparqlLegend">
+                <td>{{col}}</td>
+                <td>{{explanation}}</td>
+            </tr>
+        </table>
+        <h5>Query</h5>
         <div class="query">
             <pre class="prettyprint">{{sparqlQuery}}</pre>
         </div>
-	<div class="query-legend">
-	  <h5>Sparql Legend</h5>
-	 
-	  <div ng-hide="sparqlLegend != 'No sparqlLegend yet'">{{sparqlLegend}}</div>
-	  <ul>
-	    <li ng-repeat="(col, explanation) in sparqlLegend">
-	      {{col}} : {{explanation}}
-	    </li>
-	  </ul>
-	</div>
-        
+
+
     </div>
 
     <div class="sql-div">
         <h4>SQL</h4>
 
-        <div class="query">
-             <pre class="prettyprint">{{sqlQuery}}</pre>
-        </div>
-	  <h5>Sql Legend</h5>
+        <div ng-hide="sqlLegend != 'No SQL legend yet'">{{sqlLegend}}</div>
+        <h5 ng-hide="sqlLegend == 'No SQL legend yet'">Legend</h5>
 
-	  <div ng-hide="sqlLegend != 'No sqlLegend yet'">{{sqlLegend}}</div>
-	  <ul>
-	    <li ng-repeat="(col, explanation) in sqlLegend">
-	      {{col}} : {{explanation}}
-	    </li>
-	 </ul>
+        <table class="table well" ng-hide="sqlLegend == 'No SQL legend yet'">
+            <tbody>
+            <tr ng-repeat="(col, explanation) in sqlLegend">
+                <td>{{col}}</td>
+                <td>{{explanation}}</td>
+            </tr>
+        </table>
+
+        <h5>Query</h5>
+        <div class="query">
+            <pre class="prettyprint">{{sqlQuery}}</pre>
+        </div>
+
+
     </div>
 
 
     <div class="results">
-       <h4>SPARQL Results</h4>
+        <h4>SPARQL Results</h4>
         <table class="table well">
             <tbody>
             <tr>
                 <th ng-repeat="header in colSparqlResults">{{header}}</th>
             </tr>
-                <tr ng-repeat="item in sparqlResults">
-                    <td ng-repeat="col in colSparqlResults">{{item[col]}}</td>
-                </tr>
+            <tr ng-repeat="item in sparqlResults">
+                <td ng-repeat="col in colSparqlResults">{{item[col]}}</td>
+            </tr>
             </tbody>
         </table>
 
@@ -69,10 +79,10 @@
     </div>
 
 
-
 </div>
 
 <div class="footer">
-  <p class='pull-left'>UAMS DBMI 2014</p>
-  <p class='pull-right'>All data on this website is computer generated.  There is absolutely no real data here.</p>
+    <p class='pull-left'>UAMS DBMI 2014</p>
+
+    <p class='pull-right'>All data on this website is computer generated. There is absolutely no real data here.</p>
 </div>

@@ -24,8 +24,8 @@ angular.module('ncsoDemo')
             $scope.sparqlResults = data.data.sparqlResults;
             $scope.colSparqlResults = Object.getOwnPropertyNames($scope.sparqlResults[0]);
             $scope.explanationText = data.data.explanation;
-            $scope.sqlLegend = data.data.sqlLegend || 'No sqlLegend yet';
-            $scope.sparqlLegend = data.data.sparqlLegend || 'No sparqlLegend yet';
+            $scope.sqlLegend = data.data.sqlLegend || 'No SQL legend yet';
+            $scope.sparqlLegend = data.data.sparqlLegend || 'No SPARQL legend yet';
           }, function (err) {
             console.log('Error !' + err);
           }
