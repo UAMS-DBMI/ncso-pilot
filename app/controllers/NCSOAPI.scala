@@ -204,7 +204,7 @@ object NCSOAPI extends Controller {
 
         )
 
-        val sqlLegend = Map[String, String]()
+        val sqlLegend = "No SQL legend yet"
 
         val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + sparqlQuery.replace("\u00A0", " "))
 
