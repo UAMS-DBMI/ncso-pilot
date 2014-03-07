@@ -35,10 +35,7 @@ Packaging the Front End Into Static Files For Production Use with the Back End A
 
 Running the grunt build task will deploy minified, production ready versions of the angular app in the public/javascripts/dist/ directory.
 
-`$ grunt build --force`
-
-Force option is needed for now because the default grunt-concurrent tool does not allow deleting a folder above the root directory of the defined grunt project. This should be fixed.
-https://github.com/sindresorhus/grunt-concurrent/issues/26  explains this issue in more detail.
+`$ grunt build`
 
 
 Running the Back End API
