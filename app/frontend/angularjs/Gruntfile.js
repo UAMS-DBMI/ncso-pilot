@@ -119,7 +119,8 @@ module.exports = function (grunt) {
             '<%= yeoman.dist %>/*',
             '!<%= yeoman.dist %>/.git*'
           ]
-        }]
+        }],
+        options: { force: true } // grunt-contrib-clean cannot delete above current directory
       },
       server: '.tmp'
     },
