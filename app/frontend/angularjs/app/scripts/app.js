@@ -4,7 +4,8 @@ angular.module('ncsoDemo', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'getJsonAPI'
 ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -20,3 +21,6 @@ angular.module('ncsoDemo', [
         redirectTo: '/'
       });
   });
+
+
+angular.module('getJsonAPI', []);

@@ -1,26 +1,17 @@
 'use strict';
 
 angular.module('ncsoDemo')
-  .controller('LandingPage', function ($scope, $http, $location) {
+  .controller('LandingPage', function ($scope, $http, $location, getJsonAPI) {
     // TODO: extract the below url to a config file
     var serviceURL = 'http://localhost:9000/';
-
-    function getJsonData (JSONURL) {
-      var objectListPromise = $http({method: 'GET', url: JSONURL});
-
-      objectListPromise.then(
-        function (data) {
-          $scope.apiList = data.data;
-        }, function (err) {
-          console.log('Error !' + err);
-        }
-      );
-    }
-
+    var jsonService = new getJsonAPI();
 
     $scope.apiList = [];
     $scope.apiKeys = [];
     $scope.ncsodemoURL = $location.absUrl();
 
-    getJsonData(serviceURL + 'getcurrentapis');
+    jsonService.getData(serviceURL+ 'getcurrentapis', function (data) {
+      $scope.apiList = data.data;
+    });
+
   });
