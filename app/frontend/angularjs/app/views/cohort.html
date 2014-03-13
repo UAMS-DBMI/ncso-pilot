@@ -41,14 +41,19 @@
       
       <div class="currentCount">Current Cohorts: {{currentCohortCount}}</div>
       
-      <form class="form-horizontal" role="form">
+      <form class="form-horizontal" role="form" ng-repeat="(categoryGroup, categoryData) in cohortParams">
        <div class="form-group">
-         <div ng-repeat="(k,v) in cohortParams" class="col-sm-offset-1 col-sm-10">         
-           {{k}} {{v}}
-           <div class="checkbox">
+         <div ng-repeat="param in categoryData.params" class="col-sm-offset-2 col-sm-10" ng-class="{ 'col-sm-offset-1 col-sm-10' : param.isParent }">         
+          
+           <div class="checkbox" ng-class="{greyed: param.isTODO}">
              <label>
-               <input type="checkbox">
-             </label>                                                                                      
+               <input type="checkbox" ng-model="param.isChecked"> {{param.fullname}}
+               <select ng-if="param.comparisonOperator" ng-model="param.comparisonOperator">
+                 <option><</option>
+                 <option>=</option>
+                 <option>></option>            
+                </select> --> {{param}}
+                <label>
            </div>           
         </div>
 
