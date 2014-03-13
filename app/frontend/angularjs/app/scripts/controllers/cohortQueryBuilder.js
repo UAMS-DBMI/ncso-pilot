@@ -55,32 +55,21 @@ angular.module('ncsoDemo')
         title: 'Nicotine Exposure Data',
         params: [        
           {
-            fullname: 'Smoking Household',
-            isChecked: false
-          },
-          {
-            fullname: 'Non-Smoking Household',
-            isChecked: false
-          },
-          {
-            fullname: 'Smoking Mother',
+            fullname: 'Does this person live in a Smoking Household?',
             isChecked: false,
-            isTODO: true
+            value: false
           },
           {
-            fullname: 'Non-Smoking Mother',
+            fullname: 'Smoking Mother?',
             isChecked: false,
-            isTODO: true
+            isTODO: true,
+            value: false
           },
           {
-            fullname: 'Smoking Father',
+            fullname: 'Smoking Father?',
             isChecked: false,
-            isTODO: true
-          },
-          {
-            fullname: 'Non-Smoking Father',
-            isChecked: false,
-            isTODO: true
+            isTODO: true,
+            value: false
           }
         ]
       }

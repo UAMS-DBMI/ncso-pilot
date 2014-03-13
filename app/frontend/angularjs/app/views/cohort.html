@@ -49,16 +49,26 @@
 
            <div ng-repeat="param in categoryData.params" class="col-sm-offset-2 col-sm-10">         
           
-           <div class="checkbox" ng-class="{greyed: param.isTODO}">
+             <!-- Below is the boolean div-->
+             <div class="checkbox" ng-if="!param.comparisonOperator">
+               <label>
+                 <input type="checkbox" ng-model="param.isChecked"> {{param.fullname}}
+                 <input type="radio" ng-value="true" ng-model="param.value" > Yes
+                 <input type="radio" ng-value="false" ng-model="param.value"> No
+               <label> --> {{param}}
+             </div>
+             
+           <!-- Below is the comparison div -->
+           <div class="checkbox" ng-if="param.comparisonOperator"  ng-class="{greyed: param.isTODO}">
              <label>
                <input type="checkbox" ng-model="param.isChecked"> {{param.fullname}}
-               <select ng-if="param.comparisonOperator" ng-model="param.comparisonOperator">
+               <select  ng-model="param.comparisonOperator">
                  <option><</option>
                  <option>=</option>
                  <option>></option>            
                 </select>
                 <label>
-                <input ng-if="param.comparisonOperator" type="text" ng-model="param.value"> --> {{param}}
+                <input type="text" ng-model="param.value"> --> {{param}}
            </div>           
         </div></div>
                                                                                                
