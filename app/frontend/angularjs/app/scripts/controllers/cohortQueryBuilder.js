@@ -11,39 +11,39 @@ angular.module('ncsoDemo')
         title: 'Anthropometry',
         params : [
           {
-            fullname: 'BMI',
+            fullname: 'BMI (kg/m^2)',
             isChecked: false,
             comparisonOperator: '<',
             value: 0
           },
           {
-            fullname: 'Length',
+            fullname: 'Length (cm)',
             isChecked: false,
             comparisonOperator: '<',
             value: 0
           },
           {
-            fullname: 'Weight',
+            fullname: 'Weight (kg)',
             isChecked: false,
             comparisonOperator: '<',
             value: 0
           },
           {
-            fullname: 'Waist Circumference',
+            fullname: 'Waist Circumference (cm)',
             isChecked: false,
             comparisonOperator: '<',
             value: 0,
             isTODO: true
           },
           {
-            fullname: 'Head Circumference',
+            fullname: 'Head Circumference (cm)',
             isChecked: false,
             comparisonOperator: '<',
             value: 0,
             isTODO: true
           },
           {
-            fullname: 'Measured Subscapular Skinfold',
+            fullname: 'Measured Subscapular Skinfold (cm)',
             isChecked: false,
             comparisonOperator: '<',
             value: 0,
