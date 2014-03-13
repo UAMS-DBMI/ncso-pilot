@@ -121,13 +121,13 @@ angular.module('ncsoDemo')
     };
     
     $scope.currentCohortCount = 0;
-    $scope.currentExploratoryNCSCohortCount = 0;
+    $scope.exploratoryCaseCount = 0;
 
 
     //TODO: remove this. This is just for the demo to show what it might look like
     //This is also very hacky and horrible, but it's the fastest way to change stuff on any scope variable change
     $scope.$watch(function(){
-      $scope.currentExploratoryNCSCohortCount = Math.floor(Math.random()*100 + 1);
+      $scope.exploratoryCaseCount = Math.floor(Math.random()*100 + 1);
       $scope.currentCohortCount = Math.floor(Math.random()*100 + 1);
     });
 
