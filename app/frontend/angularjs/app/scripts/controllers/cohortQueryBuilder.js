@@ -6,7 +6,6 @@ angular.module('ncsoDemo')
     var serviceURL = 'http://localhost:9000/';
     var jsonService = new getJsonAPI();
     
-    //Cohort params are defined below.
     $scope.cohortParams = {
       anthro: {
         params : [
@@ -111,7 +110,8 @@ angular.module('ncsoDemo')
         },
         {
           fullname: 'Lymphocyte Profile Data',
-          isChecked: false
+          isChecked: false,
+          isTODO: true
         },
         {
           fullname: 'Include participant ID in output',

@@ -21,9 +21,9 @@
       <form class="form-horizontal" role="form">
        <div class="form-group">
          <div ng-repeat="param in exploratoryCohortParams.list" class="col-sm-offset-1 col-sm-10">         
-           <div class="checkbox">
+           <div class="checkbox" ng-class="{greyed: param.isTODO}">
              <label>
-               <input ng-model="param.isChecked" type="checkbox">{{param.fullname}} --> {{param}}
+               <input ng-model="param.isChecked" type="checkbox">{{param.fullname}}
              </label>                                                                                      
            </div>           
         </div>
@@ -42,8 +42,9 @@
       
       <div class="currentCount">Current Cohorts: {{currentCohortCount}}</div>
       
-      <form class="form-horizontal" role="form" ng-repeat="(categoryGroup, categoryData) in cohortParams">
+      <form class="form-horizontal" role="form">
        <div class="form-group">
+         <div  ng-repeat="(categoryGroup, categoryData) in cohortParams">
          <div ng-repeat="param in categoryData.params" class="col-sm-offset-2 col-sm-10" ng-class="{ 'col-sm-offset-1 col-sm-10' : param.isParent }">         
           
            <div class="checkbox" ng-class="{greyed: param.isTODO}">
@@ -53,12 +54,14 @@
                  <option><</option>
                  <option>=</option>
                  <option>></option>            
-                </select> --> {{param}}
+                </select>
                 <label>
+                <input ng-if="param.comparisonOperator" type="text" ng-model="param.value">
            </div>           
-        </div>    
+        </div></div>
+                                                                                               
       </form>
-        <div class="form-group">
+        <div>
           <div class="col-sm-offset-2 col-sm-10">
             <button type="submit" class="btn btn-default">Submit</button>
           </div>
