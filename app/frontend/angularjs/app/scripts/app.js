@@ -17,6 +17,10 @@ angular.module('ncsoDemo', [
         templateUrl: 'views/detail.html',
         controller: 'APIDetailView'
       })
+      .when('/cohortbuilder', {
+        templateUrl: 'views/cohort.html',
+        controller: 'CohortQueryBuilder'
+      })
       .otherwise({
         redirectTo: '/'
       });

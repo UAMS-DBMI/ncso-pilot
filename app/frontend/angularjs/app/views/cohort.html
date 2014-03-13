@@ -1,0 +1,90 @@
+<div class="header">
+    <ul class="nav nav-pills pull-right">
+        <li class="active"><a ng-href="#">Home</a></li>
+        <li><a ng-href="#">About</a></li>
+        <li><a ng-href="#">Contact</a></li>
+    </ul>
+    <h3 class="text-muted">NCSO Demo</h3>
+</div>
+
+
+<div class="content" ng-app='ncsoDemo' ng-controller='CohortQueryBuilder' class="">
+
+    <h3>NCSO Cohort Query Builder</h3>
+
+    <div class="explore-ncs"> 
+      <h4>Explore NCS</h4>
+      
+      <div class="currentCount">Current Cohorts: {{currentExploratoryNCSCohortCount}}</div>
+      
+      <form class="form-horizontal" role="form">
+       <div class="form-group">
+         <div ng-repeat="param in exploratoryCohortParams.list" class="col-sm-offset-1 col-sm-10">         
+           <div class="checkbox">
+             <label>
+               <input ng-model="param.isChecked" type="checkbox">{{param.fullname}} --> {{param}}
+             </label>                                                                                      
+           </div>           
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Submit</button>
+          </div>
+        </div>
+      </div>      
+      </form>      
+    </div>
+
+    <div class="identify-cohort">
+      <h4>Identify Cohort</h4>
+      
+      <div class="currentCount">Current Cohorts: {{currentCohortCount}}</div>
+      
+      <form class="form-horizontal" role="form">
+       <div class="form-group">
+         <div ng-repeat="(k,v) in cohortParams" class="col-sm-offset-1 col-sm-10">         
+           {{k}} {{v}}
+           <div class="checkbox">
+             <label>
+               <input type="checkbox">
+             </label>                                                                                      
+           </div>           
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Submit</button>
+          </div>
+        </div>
+      </div>      
+      </form>      
+    </div>
+      
+
+    </div>
+
+    <div class="sparql-results">
+        <h4>SPARQL Results</h4>
+        <table class="table well">
+            <tbody>
+            <tr>
+                <th ng-repeat="header in colSparqlResults">{{header}}</th>
+            </tr>
+            <tr ng-repeat="item in sparqlResults">
+                <td ng-repeat="col in colSparqlResults">{{item[col]}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+</div>
+
+<div class="footer">
+    <p class='pull-left'>UAMS DBMI 2014</p>
+
+    <p class='pull-right'>All data on this website is computer generated. There is absolutely no real data here.</p>
+</div>
