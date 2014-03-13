@@ -24,7 +24,7 @@
            <div class="checkbox" ng-class="{greyed: param.isTODO}">
              <label>
                <input ng-model="param.isChecked" type="checkbox">{{param.fullname}}
-             </label>                                                                                      
+             </label> --> {{param}}                                                                              
            </div>           
         </div>
 
@@ -45,7 +45,9 @@
       <form class="form-horizontal" role="form">
        <div class="form-group">
          <div  ng-repeat="(categoryGroup, categoryData) in cohortParams">
-         <div ng-repeat="param in categoryData.params" class="col-sm-offset-2 col-sm-10" ng-class="{ 'col-sm-offset-1 col-sm-10' : param.isParent }">         
+           <h5 class="col-sm-offset-1 col-sm-10">{{categoryData.title}}</h5>
+
+           <div ng-repeat="param in categoryData.params" class="col-sm-offset-2 col-sm-10">         
           
            <div class="checkbox" ng-class="{greyed: param.isTODO}">
              <label>
@@ -56,7 +58,7 @@
                  <option>></option>            
                 </select>
                 <label>
-                <input ng-if="param.comparisonOperator" type="text" ng-model="param.value">
+                <input ng-if="param.comparisonOperator" type="text" ng-model="param.value"> --> {{param}}
            </div>           
         </div></div>
                                                                                                

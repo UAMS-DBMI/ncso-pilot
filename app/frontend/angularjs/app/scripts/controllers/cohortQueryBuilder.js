@@ -8,12 +8,8 @@ angular.module('ncsoDemo')
     
     $scope.cohortParams = {
       anthro: {
+        title: 'Anthropometry',
         params : [
-          {
-            fullname: 'Anthropometry',
-            isChecked: false,
-            isParent: true
-          },
           {
             fullname: 'BMI',
             isChecked: false,
@@ -56,12 +52,8 @@ angular.module('ncsoDemo')
         ]
       },
       nicotine: {
-        params: [
-          {
-            fullname: 'Nicotine Exposure Data',
-            isChecked: false,
-            isParent: true
-          },
+        title: 'Nicotine Exposure Data',
+        params: [        
           {
             fullname: 'Smoking Household',
             isChecked: false
