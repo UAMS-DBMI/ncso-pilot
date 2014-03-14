@@ -1,120 +1,121 @@
 <div class="header clearfix">
-    <ul class="nav nav-pills pull-right">
-        <li><a ng-href="#">Home</a></li>
-        <li><a ng-href="#">About</a></li>
-        <li><a ng-href="#">Contact</a></li>
-        <li class="active"><a ng-href="#/cohortbuilder">Cohort Builder</a></li>
-    </ul>
-    <a class='navbar-brand'>
-        <img class='pull-left header-image' src="images/logo.png" />
-        <h3 class="text-muted pull-left">NCSO Pilot</h3>
-    </a>
+  <ul class="nav nav-pills pull-right">
+    <li><a ng-href="#">Home</a></li>
+    <li><a ng-href="#">About</a></li>
+    <li><a ng-href="#">Contact</a></li>
+    <li class="active"><a ng-href="#/cohortbuilder">Cohort Builder</a></li>
+  </ul>
+  <a class='navbar-brand'>
+    <img class='pull-left header-image' src="images/logo.png" />
+    <h3 class="text-muted pull-left">NCSO Pilot</h3>
+  </a>
 </div>
 
 
 <div class="content" ng-app='ncsoDemo' ng-controller='CohortQueryBuilder' class="">
-
-    <h3>SOME really cool acronym</h3>
-   
-
-    <tabset>
-      <tab heading="Explore NCS">
-        <div class="explore-ncs"> 
-          <h4>Explore NCS</h4>
+  
+  <h3>SOME really cool acronym</h3>
+  
+  
+  <tabset>
+    <tab heading="Explore NCS">
+      <div class="explore-ncs"> 
+        <h4>Explore NCS</h4>
         
-          <div class="currentCount">Current Cases: {{exploratoryCaseCount}}</div>
+        <div class="currentCount">Current Cases: {{exploratoryCaseCount}}</div>
         
-          <form class="form-horizontal" role="form">
-            <div class="form-group">
-              <div ng-repeat="param in exploratoryCohortParams.list" class="col-sm-offset-1 col-sm-10">         
-                <div class="checkbox" ng-class="{greyed: param.isTODO}">
-                  <label>
-                    <input ng-model="param.isChecked" type="checkbox">{{param.fullname}}
-                  </label>                                                                             
-                </div>           
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <div ng-repeat="param in exploratoryCohortParams.list" class="col-sm-offset-1 col-sm-10">         
+              <div class="checkbox" ng-class="{greyed: param.isTODO}">
+                <label>
+                  <input ng-model="param.isChecked" type="checkbox">{{param.fullname}}
+                </label>                                                                             
+              </div>           
               </div>
-              
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button type="submit" class="btn btn-default">Submit</button>
-                </div>
-              </div>
-            </div>      
-          </form>      
-        </div>    
-    </tab>
-      <tab heading="Identify Cohorts">      
-
-        <div class="identify-cohort">
-          <h4>Identify Cohort</h4>
-          
-          <div class="currentCount">Current Cohort Size: {{currentCohortCount}}</div>
-      
-          <form class="form-horizontal" role="form">
+            
             <div class="form-group">
-              <div  ng-repeat="(categoryGroup, categoryData) in cohortParams">
-                <h5 class="col-sm-offset-1 col-sm-10">{{categoryData.title}}</h5>
-                
-                <div ng-repeat="param in categoryData.params" class="col-sm-offset-2 col-sm-10">         
-                  
-                  <!-- Below is the boolean div-->
-                  <div class="checkbox" ng-class="{greyed: param.isTODO}" ng-if="!param.comparisonOperator">
-                    <label>
-                       {{param.fullname}}
-                      <input type="radio" ng-value="true" ng-model="param.value" > Yes
-                      <input type="radio" ng-value="false" ng-model="param.value"> No
-                      <label> 
-                  </div>
-                  
-                  <!-- Below is the comparison div -->
-                  <div class="checkbox" ng-if="param.comparisonOperator"  ng-class="{greyed: param.isTODO}">
-                    <label>
-                      <input type="checkbox" ng-model="param.isChecked"> {{param.fullname}}
-                      <select  ng-model="param.comparisonOperator">
-                        <option>&lt;</option>
-                        <option>=</option>
-                        <option>&gt;</option>            
-                      </select>
-                      <label>
-                        <input type="text" ng-model="param.value">
-                </div>           
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Submit</button>
               </div>
             </div>
-            
-          </form>
-          <div>
+          </div>      
+        </form>      
+      </div>    
+    </tab>
+    <tab heading="Identify Cohorts">              
+      <div class="identify-cohort">
+        <h4>Identify Cohort</h4>          
+        <div class="currentCount">Current Cohort Size: {{currentCohortCount}}</div>          
+        <form class="form-horizontal" role="form">
+          <div class="form-group">              
+            <div  ng-repeat="(categoryGroup, categoryData) in cohortParams">                   
+              <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="cohortbuilder/#{{$index}}">
+                        {{categoryData.title}}
+                      </a>
+                    </h4>
+                  </div>                           
+                  <div class="panel-body">
+                    <div id="{{$index}}" class="panel-collapse collapse in">
+                      <div ng-repeat="param in categoryData.params" class="col-sm-offset-2 col-sm-10">
+                        <!-- Below is the boolean div-->
+                        <div class="checkbox" ng-class="{greyed: param.isTODO}" ng-if="!param.comparisonOperator">
+                          <label>
+                            {{param.fullname}}
+                            <input type="radio" ng-value="true" ng-model="param.value" > Yes
+                            <input type="radio" ng-value="false" ng-model="param.value"> No
+                          </label> 
+                        </div>
+                        
+                        <!-- Below is the comparison div -->
+                        <div class="checkbox" ng-if="param.comparisonOperator"  ng-class="{greyed: param.isTODO}">
+                          <label>
+                            <input type="checkbox" ng-model="param.isChecked"> {{param.fullname}}
+                            <select  ng-model="param.comparisonOperator">
+                              <option>&lt;</option>
+                              <option>=</option>
+                              <option>&gt;</option>            
+                            </select>
+                            <input type="text" ng-model="param.value">
+                          </label>
+                        </div>                               
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="col-sm-offset-2 col-sm-10">
               <button type="submit" class="btn btn-default">Submit</button>
             </div>
           </div>
-        </div>    
-</div>
+        </form>
+      </div>       
+    </tab>   
+  </tabset>
+  
 
-</tab>   
-</tabset>
-
-
-    <div class="sparql-results">
-        <h4>SPARQL Results</h4>
-        <table class="table well">
-            <tbody>
-            <tr>
-                <th ng-repeat="header in colSparqlResults">{{header}}</th>
-            </tr>
-            <tr ng-repeat="item in sparqlResults">
-                <td ng-repeat="col in colSparqlResults">{{item[col]}}</td>
-            </tr>
-            </tbody>
-        </table>
-
-
-    </div>
-
-
+  <div class="sparql-results">
+    <h4>SPARQL Results</h4>
+    <table class="table well">
+      <tbody>
+        <tr>
+          <th ng-repeat="header in colSparqlResults">{{header}}</th>
+        </tr>
+        <tr ng-repeat="item in sparqlResults">
+          <td ng-repeat="col in colSparqlResults">{{item[col]}}</td>
+        </tr>
+      </tbody>
+    </table>    
+  </div>  
 </div>
 
 <div class="footer">
-    <p class='pull-left'>UAMS DBMI 2014</p>
-
-    <p class='pull-right'>All data on this website is computer generated. There is absolutely no real data here.</p>
+  <p class='pull-left'>UAMS DBMI 2014</p>
+  
+  <p class='pull-right'>All data on this website is computer generated. There is absolutely no real data here.</p>
 </div>
