@@ -49,56 +49,44 @@
         <div class="currentCount">Current Cohort Size: {{currentCohortCount}}</div>          
         <form class="form-horizontal" role="form">
           <div class="form-group">              
-            <div  ng-repeat="(categoryGroup, categoryData) in cohortParams">                   
-              <div class="panel-group" id="accordion">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href="cohortbuilder/#{{$index}}">
-                        {{categoryData.title}}
-                      </a>
-                    </h4>
-                  </div>                           
-                  <div class="panel-body">
-                    <div id="{{$index}}" class="panel-collapse collapse in">
-                      <div ng-repeat="param in categoryData.params" class="col-sm-offset-2 col-sm-10">
-                        <!-- Below is the boolean div-->
-                        <div class="checkbox" ng-class="{greyed: param.isTODO}" ng-if="!param.comparisonOperator">
-                          <label>
-                            {{param.fullname}}
-                            <input type="radio" ng-value="true" ng-model="param.value"> Yes
-                            <input type="radio" ng-value="false" ng-model="param.value"> No
-                            <input type="radio" ng-value="" ng-model="param.value"> Do Not Include
-                          </label>  --> {{param}}
-                        </div>
-                        
-                        <!-- Below is the comparison div -->
-                        <div class="checkbox" ng-if="param.comparisonOperator"  ng-class="{greyed: param.isTODO}">
-                          <label>
-                            <input type="checkbox" ng-model="param.isChecked"> {{param.fullname}}
-                            <select  ng-model="param.comparisonOperator">
-                              <option>&lt;</option>
-                              <option>=</option>
-                              <option>&gt;</option>            
-                            </select>
-                            <input type="text" ng-model="param.value">
-                          </label>
-                        </div>                               
-                      </div>
-                    </div>
-                  </div>
+            <div  ng-repeat="(categoryGroup, categoryData) in cohortParams">
+              <accordion-group ng-if="isCollapsed$index+1" heading="+ {{categoryData.title}}" ng-click="isCollapsed{{$index+1}}= !isCollapsed{{$index+1}}">
+                <hr>
+                <div id="collapse{{$index+1}}" collapse="isCollapsed{{$index+1}}" ng-repeat="param in categoryData.params" class="col-sm-offset-2 col-sm-10">
+                  <!-- Below is the boolean div-->
+                  <div ng-class="{greyed: param.isTODO}" ng-if="!param.comparisonOperator">
+                    <label>
+                      {{param.fullname}}
+                      <input type="radio" ng-value="true" ng-model="param.value"> Yes
+                      <input type="radio" ng-value="false" ng-model="param.value"> No
+                      <input type="radio" ng-value="" ng-model="param.value"> Do Not Include
+                    </label>  --> {{param}}
                 </div>
-              </div>
+                
+                <!-- Below is the comparison div -->
+                <div ng-if="param.comparisonOperator"  ng-class="{greyed: param.isTODO}">
+                  <label>
+                    <input type="checkbox" ng-model="param.isChecked"> {{param.fullname}}
+                    <select  ng-model="param.comparisonOperator">
+                      <option>&lt;</option>
+                      <option>=</option>
+                      <option>&gt;</option>            
+                    </select>
+                    <input type="text" ng-model="param.value">
+                  </label>
+                </div>                               
             </div>
-            <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-default">Submit</button>
-            </div>
+            </accordion-group>
           </div>
-        </form>
-      </div>       
-    </tab>   
-  </tabset>
-  
+      </div>
+      <div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </div>
+      </form>
+</div>     
+</tab>   
+</tabset>
+
 
   <div class="sparql-results">
     <h4>SPARQL Results</h4>
