@@ -22,8 +22,8 @@
       <div class="explore-ncs"> 
         <h4>Explore NCS</h4>
         
-        <div class="currentCount">Current Cases: {{exploratoryCaseCount}}</div>
-        
+        <div class="currentCount">Current Cases: {{exploratoryCaseCount}}</div>        
+        {{exploreDescriptionText}}        
         <form class="form-horizontal" role="form">
           <div class="form-group">
             <div ng-repeat="param in exploratoryCohortParams.list" class="col-sm-offset-1 col-sm-10">         
@@ -46,7 +46,8 @@
     <tab heading="Identify Cohorts">              
       <div class="identify-cohort">
         <h4>Identify Cohort</h4>          
-        <div class="currentCount">Current Cohort Size: {{currentCohortCount}}</div>          
+        <div class="currentCount">Current Cohort Size: {{currentCohortCount}}</div> 
+        {{cohortDescriptionText}}         
         <form class="form-horizontal" role="form">
           <div class="form-group">              
             <accordion>
