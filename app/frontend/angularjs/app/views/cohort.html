@@ -32,7 +32,7 @@
                   <input ng-model="param.isChecked" type="checkbox">{{param.fullname}}
                 </label>                                                                             
               </div>           
-              </div>
+            </div>
             
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
@@ -50,49 +50,49 @@
         <form class="form-horizontal" role="form">
           <div class="form-group">              
             <accordion>
-            <div  ng-repeat="(categoryGroup, categoryData) in cohortParams">
-            <accordion-group is-open="isopen">
-              <accordion-heading>
-                <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i> {{categoryData.title}}
-              </accordion-heading>
-              
-                <div ng-repeat="param in categoryData.params" class="col-sm-offset-2 col-sm-10">
-                  <!-- Below is the boolean div-->
-                  <div ng-if="!param.comparisonOperator" ng-class="{greyed: param.isTODO}" >
-                    <label>
-                      {{param.fullname}}
-                      <input type="radio" ng-value="true" ng-model="param.value"> Yes
-                      <input type="radio" ng-value="false" ng-model="param.value"> No
-                      <input type="radio" ng-value="" ng-model="param.value"> Do Not Include
-                    </label>
+              <div  ng-repeat="(categoryGroup, categoryData) in cohortParams">
+                <accordion-group is-open="isopen">
+                  <accordion-heading>
+                    <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i> {{categoryData.title}}
+                  </accordion-heading>
+                  
+                  <div ng-repeat="param in categoryData.params" class="col-sm-offset-2 col-sm-10">
+                    <!-- Below is the boolean div-->
+                    <div ng-if="!param.comparisonOperator" ng-class="{greyed: param.isTODO}" >
+                      <label>
+                        {{param.fullname}}
+                        <input type="radio" ng-value="true" ng-model="param.value"> Yes
+                        <input type="radio" ng-value="false" ng-model="param.value"> No
+                        <input type="radio" ng-value="" ng-model="param.value"> Do Not Include
+                      </label>
+                    </div>
+                    
+                    <!-- Below is the comparison div -->
+                    <div ng-if="param.comparisonOperator"  ng-class="{greyed: param.isTODO}">
+                      <label>
+                        <input type="checkbox" ng-model="param.isChecked"> {{param.fullname}}
+                        <select  ng-model="param.comparisonOperator">
+                          <option>&lt;</option>
+                          <option>=</option>
+                          <option>&gt;</option>            
+                        </select>
+                        <input type="text" ng-model="param.value">
+                      </label>
+                    </div>                               
                   </div>
-                
-                <!-- Below is the comparison div -->
-                <div ng-if="param.comparisonOperator"  ng-class="{greyed: param.isTODO}">
-                  <label>
-                    <input type="checkbox" ng-model="param.isChecked"> {{param.fullname}}
-                    <select  ng-model="param.comparisonOperator">
-                      <option>&lt;</option>
-                      <option>=</option>
-                      <option>&gt;</option>            
-                    </select>
-                    <input type="text" ng-model="param.value">
-                  </label>
-                </div>                               
-            </div>
-            </accordion-group>
+                </accordion-group>
+              </div>
+            </accordion>
           </div>
-          </accordion>
-      </div>
-      <div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </div>
-      </form>
-</div>     
-</tab>   
-</tabset>
-
-
+          <div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </div>
+        </form>
+      </div>     
+    </tab>   
+  </tabset>
+  
+  
   <div class="sparql-results">
     <h4>SPARQL Results</h4>
     <table class="table well">
