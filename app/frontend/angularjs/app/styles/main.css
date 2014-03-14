@@ -157,3 +157,10 @@ h3 {
     pointer-events: none;
 }
 
+.panel {
+    border: 0px;
+}
+
+.panel-default > .panel-heading {
+    background-color: #FFFFFF;
+}
