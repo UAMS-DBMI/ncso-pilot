@@ -5,7 +5,8 @@ angular.module('ncsoDemo', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'getJsonAPI'
+  'getJsonAPI',
+  'ui.bootstrap'
 ])
   .config(function ($routeProvider) {
     $routeProvider

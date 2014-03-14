@@ -11,78 +11,85 @@
 
 <div class="content" ng-app='ncsoDemo' ng-controller='CohortQueryBuilder' class="">
 
-    <h3>NCSO Cohort Query Builder</h3>
+    <h3>SOME really cool acronym</h3>
+   
 
-    <div class="explore-ncs"> 
-      <h4>Explore NCS</h4>
-      
-      <div class="currentCount">Current Cases: {{exploratoryCaseCount}}</div>
-      
-      <form class="form-horizontal" role="form">
-       <div class="form-group">
-         <div ng-repeat="param in exploratoryCohortParams.list" class="col-sm-offset-1 col-sm-10">         
-           <div class="checkbox" ng-class="{greyed: param.isTODO}">
-             <label>
-               <input ng-model="param.isChecked" type="checkbox">{{param.fullname}}
-             </label> --> {{param}}                                                                              
-           </div>           
-        </div>
+    <tabset>
+      <tab heading="Explore NCS">
+        <div class="explore-ncs"> 
+          <h4>Explore NCS</h4>
+        
+          <div class="currentCount">Current Cases: {{exploratoryCaseCount}}</div>
+        
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <div ng-repeat="param in exploratoryCohortParams.list" class="col-sm-offset-1 col-sm-10">         
+                <div class="checkbox" ng-class="{greyed: param.isTODO}">
+                  <label>
+                    <input ng-model="param.isChecked" type="checkbox">{{param.fullname}}
+                  </label>                                                                             
+                </div>           
+              </div>
+              
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default">Submit</button>
+                </div>
+              </div>
+            </div>      
+          </form>      
+        </div>    
+    </tab>
+      <tab heading="Identify Cohorts">      
 
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
-          </div>
-        </div>
-      </div>      
-      </form>      
-    </div>
-
-    <div class="identify-cohort">
-      <h4>Identify Cohort</h4>
-      
-      <div class="currentCount">Current Cohort Size: {{currentCohortCount}}</div>
-      
-      <form class="form-horizontal" role="form">
-       <div class="form-group">
-         <div  ng-repeat="(categoryGroup, categoryData) in cohortParams">
-           <h5 class="col-sm-offset-1 col-sm-10">{{categoryData.title}}</h5>
-
-           <div ng-repeat="param in categoryData.params" class="col-sm-offset-2 col-sm-10">         
+        <div class="identify-cohort">
+          <h4>Identify Cohort</h4>
           
-             <!-- Below is the boolean div-->
-             <div class="checkbox" ng-if="!param.comparisonOperator">
-               <label>
-                 <input type="checkbox" ng-model="param.isChecked"> {{param.fullname}}
-                 <input type="radio" ng-value="true" ng-model="param.value" > Yes
-                 <input type="radio" ng-value="false" ng-model="param.value"> No
-               <label> --> {{param}}
-             </div>
-             
-           <!-- Below is the comparison div -->
-           <div class="checkbox" ng-if="param.comparisonOperator"  ng-class="{greyed: param.isTODO}">
-             <label>
-               <input type="checkbox" ng-model="param.isChecked"> {{param.fullname}}
-               <select  ng-model="param.comparisonOperator">
-                 <option><</option>
-                 <option>=</option>
-                 <option>></option>            
-                </select>
-                <label>
-                <input type="text" ng-model="param.value"> --> {{param}}
-           </div>           
-        </div></div>
-                                                                                               
-      </form>
-        <div>
-          <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
-          </div>
-        </div>
-      </div>    
-    </div>
+          <div class="currentCount">Current Cohort Size: {{currentCohortCount}}</div>
       
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <div  ng-repeat="(categoryGroup, categoryData) in cohortParams">
+                <h5 class="col-sm-offset-1 col-sm-10">{{categoryData.title}}</h5>
+                
+                <div ng-repeat="param in categoryData.params" class="col-sm-offset-2 col-sm-10">         
+                  
+                  <!-- Below is the boolean div-->
+                  <div class="checkbox" ng-class="{greyed: param.isTODO}" ng-if="!param.comparisonOperator">
+                    <label>
+                       {{param.fullname}}
+                      <input type="radio" ng-value="true" ng-model="param.value" > Yes
+                      <input type="radio" ng-value="false" ng-model="param.value"> No
+                      <label> 
+                  </div>
+                  
+                  <!-- Below is the comparison div -->
+                  <div class="checkbox" ng-if="param.comparisonOperator"  ng-class="{greyed: param.isTODO}">
+                    <label>
+                      <input type="checkbox" ng-model="param.isChecked"> {{param.fullname}}
+                      <select  ng-model="param.comparisonOperator">
+                        <option><</option>
+                        <option>=</option>
+                        <option>></option>            
+                      </select>
+                      <label>
+                        <input type="text" ng-model="param.value"> 
+                </div>           
+              </div>
+            </div>
+            
+          </form>
+          <div>
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+          </div>
+        </div>    
+</div>
 
-    </div>
+</tab>   
+</tabset>
+
 
     <div class="sparql-results">
         <h4>SPARQL Results</h4>

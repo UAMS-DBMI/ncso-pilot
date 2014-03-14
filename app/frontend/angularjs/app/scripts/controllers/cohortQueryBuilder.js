@@ -5,7 +5,7 @@ angular.module('ncsoDemo')
     // TODO: extract the below url to a config file
     var serviceURL = 'http://localhost:9000/';
     var jsonService = new getJsonAPI();
-    
+      
     $scope.cohortParams = {
       anthro: {
         title: 'Anthropometry',
@@ -55,21 +55,15 @@ angular.module('ncsoDemo')
         title: 'Nicotine Exposure Data',
         params: [        
           {
-            fullname: 'Does this person live in a Smoking Household?',
-            isChecked: false,
-            value: false
+            fullname: 'Does this person live in a Smoking Household?'               
           },
           {
             fullname: 'Smoking Mother?',
-            isChecked: false,
-            isTODO: true,
-            value: false
+            isTODO: true
           },
           {
             fullname: 'Smoking Father?',
-            isChecked: false,
-            isTODO: true,
-            value: false
+            isTODO: true
           }
         ]
       }
