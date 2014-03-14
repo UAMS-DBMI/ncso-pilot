@@ -66,8 +66,9 @@
                         <div class="checkbox" ng-class="{greyed: param.isTODO}" ng-if="!param.comparisonOperator">
                           <label>
                             {{param.fullname}}
-                            <input type="radio" ng-value="true" ng-model="param.value" ng-click="unClickIfClicked(param, true)"> Yes
-                            <input type="radio" ng-value="false" ng-model="param.value" ng-click="unClickIfClicked(param, false)" > No
+                            <input type="radio" ng-value="true" ng-model="param.value"> Yes
+                            <input type="radio" ng-value="false" ng-model="param.value"> No
+                            <input type="radio" ng-value="" ng-model="param.value"> Do Not Include
                           </label>  --> {{param}}
                         </div>
                         

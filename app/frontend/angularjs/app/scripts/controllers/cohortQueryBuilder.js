@@ -105,24 +105,5 @@ angular.module('ncsoDemo')
       $scope.exploratoryCaseCount = Math.floor(Math.random()*100 + 1);
       $scope.currentCohortCount = Math.floor(Math.random()*100 + 1);
     });
-
-    $scope.unClickIfClicked = function (obj, clickedVal) {
-      console.log(obj);
-      if(obj.value !== undefined) {
-        if(clickedVal === obj.value) {
-          delete obj.value;
-        } else {
-          obj.value = clickedVal;
-        }
-      } else {
-        if(clickedVal) {
-          obj.value = true;
-        } else {
-          obj.value = false;
-        }
-      }
-    };
-
-
     
   });
