@@ -13,39 +13,39 @@ angular.module('ncsoDemo')
           {
             fullname: 'BMI (kg/m^2)',
             isChecked: false,
-            comparisonOperator: '<',
+            comparisonOperator: '=',
             value: 0
           },
           {
             fullname: 'Length (cm)',
             isChecked: false,
-            comparisonOperator: '<',
+            comparisonOperator: '=',
             value: 0
           },
           {
             fullname: 'Weight (kg)',
             isChecked: false,
-            comparisonOperator: '<',
+            comparisonOperator: '=',
             value: 0
           },
           {
             fullname: 'Waist Circumference (cm)',
             isChecked: false,
-            comparisonOperator: '<',
+            comparisonOperator: '=',
             value: 0,
             isTODO: true
           },
           {
             fullname: 'Head Circumference (cm)',
             isChecked: false,
-            comparisonOperator: '<',
+            comparisonOperator: '=',
             value: 0,
             isTODO: true
           },
           {
             fullname: 'Measured Subscapular Skinfold (cm)',
             isChecked: false,
-            comparisonOperator: '<',
+            comparisonOperator: '=',
             value: 0,
             isTODO: true
           }
