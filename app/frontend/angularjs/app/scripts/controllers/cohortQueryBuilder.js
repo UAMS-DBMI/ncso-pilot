@@ -106,4 +106,5 @@ angular.module('ncsoDemo')
       $scope.currentCohortCount = Math.floor(Math.random()*100 + 1);
     });
     
+    
   });
