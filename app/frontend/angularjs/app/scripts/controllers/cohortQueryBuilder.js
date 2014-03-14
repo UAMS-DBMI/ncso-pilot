@@ -53,9 +53,9 @@ angular.module('ncsoDemo')
       },
       nicotine: {
         title: 'Nicotine Exposure Data',
-        params: [        
+        params: [
           {
-            fullname: 'Does this person live in a Smoking Household?'               
+            fullname: 'Does this person live in a Smoking Household?'
           },
           {
             fullname: 'Smoking Mother?',
@@ -105,6 +105,23 @@ angular.module('ncsoDemo')
       $scope.exploratoryCaseCount = Math.floor(Math.random()*100 + 1);
       $scope.currentCohortCount = Math.floor(Math.random()*100 + 1);
     });
+
+    $scope.unClickIfClicked = function (obj, clickedVal) {
+      console.log(obj);
+      if(obj.value !== undefined) {
+        if(clickedVal === obj.value) {
+          delete obj.value;
+        } else {
+          obj.value = clickedVal;
+        }
+      } else {
+        if(clickedVal) {
+          obj.value = true;
+        } else {
+          obj.value = false;
+        }
+      }
+    };
 
 
     
