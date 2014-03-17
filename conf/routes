@@ -25,6 +25,8 @@ GET        /styles/*file                controllers.Assets.at(path="/public/java
 GET        /scripts/*file               controllers.Assets.at(path="/public/javascripts/dist/scripts", file)
 GET        /views/*file                 controllers.Assets.at(path="/public/javascripts/dist/views", file)
 GET        /images/*file                controllers.Assets.at(path="/public/javascripts/dist/images", file)
+GET     /bower_components/*file      controllers.Assets.at(path="/public/javascripts/dist/bower_components", file)
+GET     /fonts/*file      controllers.Assets.at(path="/public/javascripts/dist/fonts", file)
 
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file                controllers.Assets.at(path="/public", file)

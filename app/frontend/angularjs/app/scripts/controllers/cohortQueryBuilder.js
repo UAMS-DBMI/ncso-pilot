@@ -3,7 +3,7 @@
 angular.module('ncsoDemo')
     .controller('CohortQueryBuilder', function ($scope, $location, $routeParams, getJsonAPI, $http) {
         // TODO: extract the below url to a config file
-        var serviceURL = 'http://localhost:9000/';
+        var serviceURL = 'http://144.30.12.7:9000/';
         var jsonService = new getJsonAPI();
 
         $scope.cohortDescriptionText = 'This page allows you to identify cohorts of participants that meet multiple criteria.  Fill out the form to retreive a list of NCS participants that meet specific requirements.';
