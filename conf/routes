@@ -13,6 +13,10 @@ GET        /getGeneralHealthMetricsForSmokingHouseHolds         controllers.NCSO
 GET        /getGeneralHealthMetricsForParticipantsInSmokingHouseholdsLessThanFifteenBMI     controllers.NCSOAPI.getGeneralHealthMetricsForParticipantsInSmokingHouseholdsLessThanFifteenBMI
 GET        /getGeneralHealthAndSurrogateDataForAllParticipants  controllers.NCSOAPI.getGeneralHealthAndSurrogateDataForAllParticipants
 
+#cohort bulder API
+GET        /api/cohortexplorer                                  controllers.CohortBuilderAPI.getAll(data)
+GET        /api/cohortbuilder                                   controllers.CohortBuilderAPI.getCohort(filterData)
+
 # Route to Angular.js App static dist files
 GET        /demo                        controllers.Assets.at(path="/public", file="/javascripts/dist/index.html")
 
