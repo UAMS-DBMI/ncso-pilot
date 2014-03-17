@@ -50,6 +50,7 @@ object SPARQLBuilder {
       |
       |    ?household rdfs:label ?householdType .
       |    FILTER (?household = obo:NCSO_00000051 || ?household = obo:NCSO_00000050)""".stripMargin
+
   val nicotineExposureHeader: String = "?householdType"
   val surrogateDataHeader: String = "?surDataLabel ?surrogateValue"
   val anthroHeader: String = "?weight ?height"
@@ -66,7 +67,6 @@ object SPARQLBuilder {
     var body = List[String]()
 
     if(dataType.contains("participantID")){
-      println("has participantID")
       headers ::= "?participantID"
     }
     if(dataType.contains("anthroData")){
@@ -89,7 +89,6 @@ object SPARQLBuilder {
          |    ?participant rdf:type <http://www.semanticweb.org/semanticweb.org/ncso/NCSO_00000085> ;
          |      rdfs:label ?participantID . """.stripMargin + body.mkString("\n") + "\n} LIMIT 10"
 
-    println(query)
     return query
   }
 

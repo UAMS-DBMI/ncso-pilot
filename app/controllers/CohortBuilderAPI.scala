@@ -23,12 +23,12 @@ object CohortBuilderAPI extends Controller {
 
       val json = Json.parse(filterData)
 
-      val data = json.get("data")
+      val data = json.get("zdata")
       val anthro = json.get("anthro")
       val nicotine = json.get("nicotine")
 
       val checkedData = (data.get("params").iterator() collect {
-        case item: JsonNode if(item.has("value") && item.get("value").asBoolean() == true) => item.get("id").toString
+        case item: JsonNode if(item.has("isChecked") && item.get("isChecked").asBoolean() == true) => item.get("id").toString
       }).toTraversable.toList.map(_.replace("\"", ""))
 
       val householdOption: Option[String] = (nicotine.get("params").iterator map {
@@ -50,8 +50,6 @@ object CohortBuilderAPI extends Controller {
           "value" -> item.get("value").asText()
         )
       }).toList
-
-      println(checkedAnthro)
 
       val query = SPARQLBuilder.buildCohortQuery(checkedAnthro, householdOption, checkedData)
 

@@ -11,7 +11,7 @@ angular.module('ncsoDemo')
 
         $scope.cohortParams = {
             anthro: {
-                title: 'Anthropometry',
+                title: 'Set up filters using anthropometry data',
                 params: [
                     {
                         fullname: 'BMI (kg/m^2)',
@@ -61,41 +61,45 @@ angular.module('ncsoDemo')
                 ]
             },
             nicotine: {
-                title: 'Nicotine Exposure Data',
+                title: 'Set up filters using nicotine exposure',
                 params: [
                     {
-                        fullname: 'Does this person live in a Smoking Household?',
+                        fullname: 'Do you want only participants who live in a smoking household?',
                         id: 'smokingHousehold'
                     },
                     {
-                        fullname: 'Smoking Mother?',
+                        fullname: 'Do you want only participants who live in a household with a smoking mother?',
                         isTODO: true,
                         id: 'smokingMother'
                     },
                     {
-                        fullname: 'Smoking Father?',
+                        fullname: 'Do you want only participants who live in a household with a smoking father?',
                         isTODO: true,
                         id: 'smokeFather'
                     }
                 ]
             },
-            data: {
-                title: 'Returned Data',
+            zdata: {
+                title: 'Choose types of data to be returned',
                 params: [
                     {
-                        fullname: 'Nicotine Exposure Data',
+                        fullname: 'Do you want nicotine exposure data?',
+                        isChecked: false,
                         id: 'nicotineData'
                     },
                     {
-                        fullname: 'General Health Surrogate Data',
+                        fullname: 'Do you want general health surrogate data?',
+                        isChecked: false,
                         id: 'generalHealthData'
                     },
                     {
-                        fullname: 'Anthropometry Data',
+                        fullname: 'Do you want anthropometry data?',
+                        isChecked: false,
                         id: 'anthroData'
                     },
                     {
-                        fullname: 'Lymphocyte Profile Data',
+                        fullname: 'Do you want lymphocyte profile data?',
+                        isChecked: false,
                         isTODO: true,
                         id: 'lymphoData'
                     }
@@ -106,28 +110,28 @@ angular.module('ncsoDemo')
         $scope.exploratoryCohortParams = {
             list: [
                 {
-                    fullname: 'Nicotine Exposure Data',
+                    fullname: 'Do you want nicotine exposure data?',
                     isChecked: false,
                     id: 'nicotineData'
                 },
                 {
-                    fullname: 'General Health Surrogate Data',
+                    fullname: 'Do you want general health surrogate data?',
                     isChecked: false,
                     id: 'generalHealthData'
                 },
                 {
-                    fullname: 'Anthropometry Data',
+                    fullname: 'Do you want anthropometry data?',
                     isChecked: false,
                     id: 'anthroData'
                 },
                 {
-                    fullname: 'Lymphocyte Profile Data',
+                    fullname: 'Do you want lymphocyte profile data?',
                     isChecked: false,
                     isTODO: true,
                     id: 'lymphoData'
                 },
                 {
-                    fullname: 'Include participant ID in output',
+                    fullname: 'Do you want to the participant IDs?',
                     isChecked: false,
                     id: 'participantID'
                 }
