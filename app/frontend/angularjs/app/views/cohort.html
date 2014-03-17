@@ -15,15 +15,12 @@
 <div class="content" ng-app='ncsoDemo' ng-controller='CohortQueryBuilder' class="">
   
   <h3>SOME really cool acronym</h3>
-  
-  
+
   <tabset>
     <tab heading="Explore NCS">
       <div class="explore-ncs"> 
         <h4>Explore NCS</h4>
-        
-        <div class="currentCount">Current Cases: {{exploratoryCaseCount}}</div>        
-        {{exploreDescriptionText}}        
+        <p>{{exploreDescriptionText}}</p>
         <form class="form-horizontal" role="form">
           <div class="form-group">
             <div ng-repeat="param in exploratoryCohortParams.list" class="col-sm-offset-1 col-sm-10">         
@@ -42,37 +39,36 @@
           </div>      
         </form>      
       </div>
-        <tabset class="sparql-tabs">
-          <tab heading="SPARQL Results">
-            <div class="sparql-results">
-              <h4>SPARQL Results</h4>
-              <table class="table well">
-                <tbody>
-                  <tr>
-                    <th ng-repeat="header in exploreResultKeys">{{header}}</th>
-                  </tr>
-                  <tr ng-repeat="item in exploreResults">
-                    <td ng-repeat="col in exploreResultKeys">{{item[col]}}</td>
-                  </tr>
-                </tbody>
-              </table>    
-            </div>  
-          </tab>
-          <tab heading="SPARQL Query">
-              <div class="sparql-query">
-                  <h4>SPARQL Query</h4>
-                  <div class="query">
-                      <pre class="prettyprint">{{exploreQuery}}</pre>
-                  </div>
+      <tabset class="sparql-tabs">
+        <tab heading="SPARQL Results">
+          <div class="sparql-results">
+            <h4>SPARQL Results</h4>
+            <table class="table well">
+              <tbody>
+                <tr>
+                  <th ng-repeat="header in exploreResultKeys">{{header}}</th>
+                </tr>
+                <tr ng-repeat="item in exploreResults">
+                  <td ng-repeat="col in exploreResultKeys">{{item[col]}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </tab>
+        <tab heading="SPARQL Query">
+          <div class="sparql-query">
+            <h4>SPARQL Query</h4>
+              <div class="query">
+                <pre class="prettyprint">{{exploreQuery}}</pre>
               </div>
-          </tab>
-        </tabset>    
+            </div>
+        </tab>
+      </tabset>
     </tab>
     <tab heading="Identify Cohorts">              
       <div class="identify-cohort">
         <h4>Identify Cohort</h4>          
-        <div class="currentCount">Current Cohort Size: {{currentCohortCount}}</div> 
-        {{cohortDescriptionText}}         
+        <p>{{cohortDescriptionText}}</p>
         <form class="form-horizontal" role="form">
           <div class="form-group">              
             <accordion close-others="false">
@@ -116,11 +112,7 @@
         </form>
       </div> 
       <tabset class="sparql-tabs">
-        <tab heading="SPARQL Query">  
-          <div class="sparql-query">
-            <h4>SPARQL Query</h4>
-          </div>
-        </tab>
+
         <tab heading="SPARQL Results">
           <div class="sparql-results">
             <h4>SPARQL Results</h4>
@@ -135,6 +127,11 @@
               </tbody>
             </table>    
           </div>  
+        </tab>
+        <tab heading="SPARQL Query">
+          <div class="sparql-query">
+            <h4>SPARQL Query</h4>
+          </div>
         </tab>
       </tabset>    
     </tab>   

@@ -4,6 +4,7 @@ package models
  * Created by joshhanna on 3/16/14.
  */
 object SPARQLBuilder {
+
   val surrogateDataQuery =
     """
       |       #surrogate data
@@ -53,6 +54,13 @@ object SPARQLBuilder {
   val surrogateDataHeader: String = "?surDataLabel ?surrogateValue"
   val anthroHeader: String = "?weight ?height"
 
+  val smokingFilter = "FILTER (?household = obo:NCSO_00000051)"
+  val nonsmokingFilter = "FILTER (?household = obo:NCSO_00000050)"
+
+  val bmiFilter = "FILTER(xsd:float(?bmi) %s %s) ."
+  val lengthFilter = "FILTER(xsd:float(?height) %s %s)"
+  val weightFilter = "FILTER(xsd:float(?weight) %s %s)"
+
   def buildQueryForAll(dataType: List[String]): String = {
     var headers = List[String]()
     var body = List[String]()
@@ -84,5 +92,78 @@ object SPARQLBuilder {
     println(query)
     return query
   }
+
+  def buildCohortQuery(anthro: List[Map[String, String]], smoking: Option[String], data: List[String]): String = {
+    var headers = List[String]()
+    var body = Set[String]()
+
+    //always want participant ID
+    headers ::= "?participantID"
+
+    //handling which data the user wants to return
+    if(data.contains("anthroData")){
+      headers ::= anthroHeader
+      body += anthroDataQuery
+    }
+    if(data.contains("generalHealthData")){
+      headers ::= surrogateDataHeader
+      body += surrogateDataQuery
+    }
+    if(data.contains("nicotineData")){
+      headers ::= nicotineExposureHeader
+      body += nicotineExposureDataQuery
+    }
+
+    //handling smoking household filter
+    if(smoking.nonEmpty){
+      if(smoking.get == "smokingHousehold"){
+        //need exposure data for filter to work
+        body += nicotineExposureDataQuery
+        body += smokingFilter
+      } else if(smoking.get == "nonSmokingHousehold") {
+        //need exposure data for filter to work
+        body += nicotineExposureDataQuery
+        body += nonsmokingFilter
+      }
+    }
+
+    //handling anthro filter
+    anthro.foreach(filter => {
+      val filterID = filter("id")
+      val operator = filter("operator")
+      val value = filter("value")
+
+      if(filterID == "bmi"){
+        //need anthro data for filter to work
+        body += anthroDataQuery
+        body += bmiFilter.format(operator, value)
+      }
+
+      if(filterID == "length"){
+        //need anthro dat for filter to work
+        body += anthroDataQuery
+        body += lengthFilter.format(operator, value)
+      }
+
+      if(filterID == "weight"){
+        //need anthro dat for filter to work
+        body += anthroDataQuery
+        body += weightFilter.format(operator, value)
+      }
+
+    })
+
+    //building query based on options
+    val query =
+      """select distinct """ + headers.mkString(" ") +
+      """|  {
+         |    ?participant rdf:type <http://www.semanticweb.org/semanticweb.org/ncso/NCSO_00000085> ;
+         |    rdfs:label ?participantID . """.stripMargin + body.mkString("\n") + "\n} LIMIT 10"
+
+    println(query)
+    return query
+
+  }
+
 
 }

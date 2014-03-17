@@ -27,9 +27,43 @@ object CohortBuilderAPI extends Controller {
       val anthro = json.get("anthro")
       val nicotine = json.get("nicotine")
 
-      println(data)
+      val checkedData = (data.get("params").iterator() collect {
+        case item: JsonNode if(item.has("value") && item.get("value").asBoolean() == true) => item.get("id").toString
+      }).toTraversable.toList.map(_.replace("\"", ""))
 
-      Ok("Hello")
+      val householdOption: Option[String] = (nicotine.get("params").iterator map {
+        case item: JsonNode if(item.get("id").asText() == "smokingHousehold") => {
+          if(!item.has("value")){
+            None
+          } else if(item.get("value").asBoolean() == true) {
+            Some("smokingHousehold")
+          } else Some("nonSmokingHousehold")
+        }
+      }).toTraversable.headOption.getOrElse(None)
+
+      val checkedAnthro = (anthro.get("params").iterator collect {
+        case item: JsonNode if(item.has("isChecked") && item.get("isChecked").asBoolean == true) => item
+      }).toTraversable.map(item => {
+        Map(
+          "id" -> item.get("id").asText(),
+          "operator" -> item.get("comparisonOperator").asText(),
+          "value" -> item.get("value").asText()
+        )
+      }).toList
+
+      println(checkedAnthro)
+
+      val query = SPARQLBuilder.buildCohortQuery(checkedAnthro, householdOption, checkedData)
+
+      val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + query.replace("\u00A0", " "))
+
+      //accidentally used Java Json; convert back later
+      Ok(SJson.toJson(
+        Map(
+          "sparqlQuery" -> SJson.toJson(query),
+          "sparqlResults" -> SJson.toJson(resultRows)
+        )
+      ))
     }
   }
 

@@ -84,22 +84,18 @@ angular.module('ncsoDemo')
                 params: [
                     {
                         fullname: 'Nicotine Exposure Data',
-                        isChecked: false,
                         id: 'nicotineData'
                     },
                     {
                         fullname: 'General Health Surrogate Data',
-                        isChecked: false,
                         id: 'generalHealthData'
                     },
                     {
                         fullname: 'Anthropometry Data',
-                        isChecked: false,
                         id: 'anthroData'
                     },
                     {
                         fullname: 'Lymphocyte Profile Data',
-                        isChecked: false,
                         isTODO: true,
                         id: 'lymphoData'
                     }
