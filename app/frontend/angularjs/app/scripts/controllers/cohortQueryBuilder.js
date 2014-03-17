@@ -64,16 +64,16 @@ angular.module('ncsoDemo')
                 title: 'Set up filters using nicotine exposure',
                 params: [
                     {
-                        fullname: 'Do you want only participants who live in a smoking household?',
+                        fullname: 'Do you want participants who live in a smoking or non-smoking household?',
                         id: 'smokingHousehold'
                     },
                     {
-                        fullname: 'Do you want only participants who live in a household with a smoking mother?',
+                        fullname: 'Do you want participants who live in a household with a smoking or non-smoking mother?',
                         isTODO: true,
                         id: 'smokingMother'
                     },
                     {
-                        fullname: 'Do you want only participants who live in a household with a smoking father?',
+                        fullname: 'Do you want participants who live in a household with a smoking or non-smoking father?',
                         isTODO: true,
                         id: 'smokeFather'
                     }
@@ -131,7 +131,7 @@ angular.module('ncsoDemo')
                     id: 'lymphoData'
                 },
                 {
-                    fullname: 'Do you want to the participant IDs?',
+                    fullname: 'Do you want to include the participant IDs?',
                     isChecked: false,
                     id: 'participantID'
                 }
