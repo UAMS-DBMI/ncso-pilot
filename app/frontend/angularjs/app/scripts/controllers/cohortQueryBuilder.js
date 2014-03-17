@@ -3,7 +3,7 @@
 angular.module('ncsoDemo')
     .controller('CohortQueryBuilder', function ($scope, $location, $routeParams, getJsonAPI, $http) {
         // TODO: extract the below url to a config file
-        var serviceURL = 'http://144.30.12.7:9000/';
+        var serviceURL = 'http://localhost:9000/';
         var jsonService = new getJsonAPI();
 
         $scope.cohortDescriptionText = 'This page allows you to identify cohorts of participants that meet multiple criteria.  Fill out the form to retreive a list of NCS participants that meet specific requirements.';
@@ -151,8 +151,13 @@ angular.module('ncsoDemo')
                 method: "GET",
                 params: {filterData: $scope.cohortParams}
             }).success(function (data, status, headers, config) {
-                console.log(data)
-                $scope.cohortQuery = data.sparqleQuery
+                $scope.cohortQuery = data.sparqlQuery;
+
+                if(data.sparqlResults !== undefined) {
+                    $scope.cohortResultKeys = Object.getOwnPropertyNames(data.sparqlResults[0])
+                }
+                $scope.cohortResults = data.sparqlResults
+                console.log($scope.cohortResultKeys)
             }).error(function (data, status, headers, config) {
                 console.log("Error: " + status)
             });
@@ -167,7 +172,9 @@ angular.module('ncsoDemo')
             }).success(function (data, status, headers, config) {
                 $scope.exploreQuery = data.sparqlQuery;
 
-                $scope.exploreResultKeys = Object.getOwnPropertyNames(data.sparqlResults[0])
+                if(data.sparqlResults !== undefined) {
+                    $scope.exploreResultKeys = Object.getOwnPropertyNames(data.sparqlResults[0])
+                }
                 $scope.exploreResults = data.sparqlResults
                 console.log($scope.exploreResultKeys)
 
