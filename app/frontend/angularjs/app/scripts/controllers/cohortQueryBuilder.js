@@ -150,15 +150,17 @@ angular.module('ncsoDemo')
          });*/
 
         $scope.submitCohort = function () {
-            $http({
+            var promise = $http({
                 url: serviceURL + 'api/cohortbuilder',
                 method: "GET",
                 params: {filterData: $scope.cohortParams}
             }).success(function (data, status, headers, config) {
-                $scope.data = data;
+                console.log(data)
+                $scope.cohortQuery = data.sparqleQuery
             }).error(function (data, status, headers, config) {
                 console.log("Error: " + status)
             });
+
         }
 
         $scope.submitExplore = function () {
@@ -167,7 +169,12 @@ angular.module('ncsoDemo')
                 method: "GET",
                 params: {data: $scope.exploratoryCohortParams}
             }).success(function (data, status, headers, config) {
-                $scope.data = data;
+                $scope.exploreQuery = data.sparqlQuery;
+
+                $scope.exploreResultKeys = Object.getOwnPropertyNames(data.sparqlResults[0])
+                $scope.exploreResults = data.sparqlResults
+                console.log($scope.exploreResultKeys)
+
             }).error(function (data, status, headers, config) {
                 console.log("Error: " + status)
             });
