@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('ncsoDemo')
-  .controller('CohortQueryBuilder', function ($scope, $location, $routeParams, getJsonAPI, $http, ConfigurationService) {
+  .controller('CohortQueryBuilder', function ($scope, $location, $routeParams, HttpHelper, $http, ConfigurationService) {
     // TODO: extract the below url to a config file
     var serviceURL = ConfigurationService.ServiceUrl + ':' + ConfigurationService.ServicePort + '/';
-    var jsonService = new getJsonAPI();
     
     $scope.cohortDescriptionText = 'This page allows you to identify cohorts of participants that meet multiple criteria.  Fill out the form to retreive a list of NCS participants that meet specific requirements.';
     $scope.exploreDescriptionText = 'This page allows you to easily learn which kind of data NCS captured about its participants. Check the boxes to search specific kinds of data gathered about NCS participants.';
@@ -139,14 +138,14 @@ angular.module('ncsoDemo')
     };
     
     $scope.currentCohortCount = 0;
-    $scope.exploratoryCaseCount = 0;
+    $scope.exploratoryCaseCount = 0;    
     
     $scope.submitCohort = function () {
-      var promise = $http({
+      HttpHelper.httpWrapper({
         url: serviceURL + 'api/cohortbuilder',
         method: 'GET',
         params: {filterData: $scope.cohortParams}
-      }).success(function (data, status, headers, config) {
+      }, function (data, status, headers, config) {
         $scope.cohortQuery = data.sparqlQuery;
         
         if(data.sparqlResults !== undefined) {
@@ -154,18 +153,16 @@ angular.module('ncsoDemo')
         }
         $scope.cohortResults = data.sparqlResults;
         console.log($scope.cohortResultKeys);
-      }).error(function (data, status, headers, config) {
-        console.log('Error: ' + status);
-      });
-      
+      });      
     };
     
     $scope.submitExplore = function () {
-      $http({
+      HttpHelper.httpWrapper({
         url: serviceURL + 'api/cohortexplorer',
         method: 'GET',
         params: {data: $scope.exploratoryCohortParams}
-      }).success(function (data, status, headers, config) {
+      }, function (data, status, headers, config) {
+        console.log(data);
         $scope.exploreQuery = data.sparqlQuery;
         
         if(data.sparqlResults !== undefined) {
@@ -174,11 +171,7 @@ angular.module('ncsoDemo')
         $scope.exploreResults = data.sparqlResults;
         console.log($scope.exploreResultKeys);
         
-      }).error(function (data, status, headers, config) {
-        console.log('Error: ' + status);
-      });
-      
-      
+      });      
     };
     
   });

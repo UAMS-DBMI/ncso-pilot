@@ -5,7 +5,7 @@ angular.module('ncsoDemo', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'getJsonAPI',
+  'HttpHelper',
   'ui.bootstrap',
   'ConfigurationService'
 ])
@@ -29,5 +29,5 @@ angular.module('ncsoDemo', [
   });
 
 
-angular.module('getJsonAPI', []);
+angular.module('HttpHelper', []);
 angular.module('ConfigurationService', []);

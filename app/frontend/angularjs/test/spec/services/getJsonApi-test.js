@@ -1,25 +1,24 @@
 'use strict';
 
 
-describe('Service: getJsonAPI', function () {
+describe('Service: HttpHelper', function () {
 
-  beforeEach(module('getJsonAPI'));
+  beforeEach(module('HttpHelper'));
   
-  var $httpBackend, jsonService;
+  var $httpBackend, httpHelper;
   var responseData = 'sample mock response';
 
   it('should contain $http dependency', inject(function ($http) {
     expect($http).not.toBe(null);
   }));
 
-  describe('getJsonApi http mocking tests', function () {
+  describe('HttpHelper http mocking tests', function () {
 
     beforeEach(inject(function ($injector) {
       $httpBackend = $injector.get('$httpBackend');
       $httpBackend.when('GET', '/test').respond(200, responseData);
       $httpBackend.when('GET', '/notavalidurl').respond(404, {});
-      var GetJsonApiService = $injector.get('getJsonAPI');
-      jsonService = new GetJsonApiService();
+      httpHelper = $injector.get('HttpHelper');
     }));
     
     afterEach(function () {
@@ -30,8 +29,11 @@ describe('Service: getJsonAPI', function () {
     
     it('should successfully handle a promise for a valid request', function () {
       
-      jsonService.getPromise('/test').success(function (response) {
-        expect(response).toEqual(responseData);
+      httpHelper.getPromise({
+        method: 'GET',
+        url: '/test'
+      }).success(function (data) {
+        expect(data).toEqual(responseData);
       }).error(function (response) {
         //If it ever errors out on the above url then make the test fail
         expect(false).toEqual(true);
@@ -40,52 +42,51 @@ describe('Service: getJsonAPI', function () {
 
 
     it('should handle passing a function and retrieving the output for a valid request', function () {
-      jsonService.getData('/test', function (d) {
-        console.log(d.data);
-        expect(d.data).not.toBe(null);
-        expect(d.data).not.toBe(undefined);
-        expect(d.data).toEqual(responseData);
-        expect(d.status).toBe(200);
+      httpHelper.httpWrapper({
+        method: 'GET',
+        url: '/test'
+      }, function (data, status) {
+        console.log(data);
+        expect(data).not.toBe(null);
+        expect(data).not.toBe(undefined);
+        expect(data).toEqual(responseData);
+        expect(status).toBe(200);
       });
     });
    
     it('getPromise should error out on an incorrect url', function () {
-      jsonService.getPromise('/notavalidurl').success(function (response) {
+      httpHelper.getPromise({
+        method: 'GET',
+        url: '/notavalidurl'
+      }).success(function (data) {
         expect(false).toEqual(true);
-      }).error(function (response) {
+      }).error(function (data) {
         expect(true).toEqual(true);
       });
     });
-    
-    /*it('getData should throw an error on an incorrect url', function () {      
-      //TODO: the below doesn't work...
-      expect(function () {
-        jsonService.getData('/notavalidurl', function (data) {
-          console.log(data);
-        });
-      }).toThrow();
-    });*/
 
     it('getData should allow you to set the title of the output', function () {
       var title = 'something really, really cool';
-      jsonService.getData('/test', function (d) {
-        expect(d.config.title).toEqual(title);
-      }, title);
+      httpHelper.httpWrapper({
+        method: 'GET',
+        url: '/test',
+        title: title        
+      }, function (data, status, headers, config) {
+        expect(config.title).toEqual(title);
+      });
     });
 
     it('getPromise should allow you to set the title of the output', function () {
       var title = 'something even cooler';
-      jsonService.getPromise('/test', title).success(function (data, status, headers, config) {
+      httpHelper.getPromise({
+        method: 'GET',
+        url: '/test',
+        title: title
+      }).success(function (data, status, headers, config) {
         expect(config.title).toEqual(title);
-      }).error(function (response) {
+      }).error(function (data) {
         expect(true).toEqual(false);
       });
     });
-
-
-
-  });
-
-  
-    
+  });    
 });
