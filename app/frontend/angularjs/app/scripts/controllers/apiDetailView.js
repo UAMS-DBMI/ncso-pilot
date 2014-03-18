@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('ncsoDemo')
-    .controller('APIDetailView', function ($scope, $location, $routeParams, getJsonAPI) {
-      // TODO: extract the below url to a config file
-      var serviceURL = 'http://144.30.12.7:9000/';
+    .controller('APIDetailView', function ($scope, $location, $routeParams, getJsonAPI, ConfigurationService) {
+      var serviceURL = ConfigurationService.ServiceUrl + ':' + ConfigurationService.ServicePort + '/';
       var jsonService = new getJsonAPI();
 
       $scope.apiName = $routeParams.route;

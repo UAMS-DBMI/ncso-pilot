@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('ncsoDemo')
-  .controller('LandingPage', function ($scope, $http, $location, getJsonAPI) {
-    // TODO: extract the below url to a config file
-    var serviceURL = 'http://144.30.12.7:9000/';
+  .controller('LandingPage', function ($scope, $http, $location, getJsonAPI, ConfigurationService) {
+    var serviceURL = ConfigurationService.ServiceUrl + ':' + ConfigurationService.ServicePort + '/';
     var jsonService = new getJsonAPI();
 
     $scope.apiList = [];

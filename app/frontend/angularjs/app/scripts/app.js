@@ -6,7 +6,8 @@ angular.module('ncsoDemo', [
   'ngSanitize',
   'ngRoute',
   'getJsonAPI',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ConfigurationService'
 ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -29,3 +30,4 @@ angular.module('ncsoDemo', [
 
 
 angular.module('getJsonAPI', []);
+angular.module('ConfigurationService', []);
