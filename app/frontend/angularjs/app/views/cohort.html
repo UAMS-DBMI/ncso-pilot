@@ -97,15 +97,19 @@
                     <div ng-if="param.comparisonOperator"  ng-class="{greyed: param.isTODO}">
                       <label class="form-inline">
                         <input type="checkbox" ng-model="param.isChecked"> {{param.fullname}}
+                      </label>
+                      <label>
                         <select  ng-model="param.comparisonOperator">
                           <option>&lt;</option>
                           <option>=</option>
                           <option>&gt;</option>            
                         </select>
+                      </label>
+                      <label>
                         <input type="text" ng-model="param.value">
                       </label>
                     </div>
-
+                    
                     <!-- Below is the data selection div -->
                     <div ng-if="!param.comparisonOperator && param.isChecked !== undefined" ng-class="{greyed: param.isTODO}" class="checkbox">
                       <label>
