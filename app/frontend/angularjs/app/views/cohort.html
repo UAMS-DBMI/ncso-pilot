@@ -99,14 +99,14 @@
                         <input type="checkbox" ng-model="param.isChecked"> {{param.fullname}}
                       </label>
                       <label>
-                        <select  ng-model="param.comparisonOperator">
+                        <select  ng-model="param.comparisonOperator" ng-change="param.isChecked = true">
                           <option>&lt;</option>
                           <option>=</option>
                           <option>&gt;</option>            
                         </select>
                       </label>
                       <label>
-                        <input type="text" ng-model="param.value">
+                        <input type="text" ng-model="param.value" ng-change="param.isChecked = true">
                       </label>
                     </div>
                     

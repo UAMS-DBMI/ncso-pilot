@@ -9,9 +9,9 @@ object SPARQLBuilder {
     """
       |    #surrogate data
       |    <http://purl.obolibrary.org/obo/NCSO.owl/EXPOSD_00000002> owl:equivalentClass/owl:unionOf/rdf:first*/rdf:rest*/rdf:first/owl:someValuesFrom ?surDataClass .
-      |    ?surDataClass rdfs:label ?surDataLabel .
+      |    ?surDataClass rdfs:label ?surDataType .
       |    ?surrogateData rdf:type ?surDataClass ;
-      |    obo:OBI_0001938/obo:OBI_0001937 ?surrogateValue ;
+      |    obo:OBI_0001938/obo:OBI_0001937 ?surDataValue ;
       |    obo:IAO_0000136 ?participant . """.stripMargin
   val anthroDataQuery =
     """
@@ -48,11 +48,11 @@ object SPARQLBuilder {
       |      rdfs:label ?VSLabel
       |    ] .
       |
-      |    ?household rdfs:label ?householdType .
+      |    ?household rdfs:label ?participantType .
       |    FILTER (?household = obo:NCSO_00000051 || ?household = obo:NCSO_00000050)""".stripMargin
 
-  val nicotineExposureHeader: String = "?householdType"
-  val surrogateDataHeader: String = "?surDataLabel ?surrogateValue"
+  val nicotineExposureHeader: String = "?participantType"
+  val surrogateDataHeader: String = "?surDataType ?surDataValue"
   val anthroHeader: String = "?weight ?height"
 
   val smokingFilter = "    FILTER (?household = obo:NCSO_00000050)"

@@ -4,13 +4,13 @@ angular.module('ncsoDemo')
   .controller('CohortQueryBuilder', function ($scope, $location, $routeParams, HttpHelper, $http, ConfigurationService) {
     // TODO: extract the below url to a config file
     var serviceURL = ConfigurationService.ServiceUrl + ':' + ConfigurationService.ServicePort + '/';
-    
+
     $scope.cohortDescriptionText = 'This page allows you to identify cohorts of participants that meet multiple criteria.  Fill out the form to retreive a list of NCS participants that meet specific requirements.';
     $scope.exploreDescriptionText = 'This page allows you to easily learn which kind of data NCS captured about its participants. Check the boxes to search specific kinds of data gathered about NCS participants.';
-    
+
     $scope.cohortParams = {
       anthro: {
-        title: 'Set up filters using anthropometry data',
+        title: 'Set filters using anthropometry data',
         params: [
           {
             fullname: 'BMI (kg/m^2)',
@@ -60,7 +60,7 @@ angular.module('ncsoDemo')
         ]
       },
       nicotine: {
-        title: 'Set up filters using nicotine exposure',
+        title: 'Set filters using nicotine exposure',
         params: [
           {
             fullname: 'Do you want participants who live in a smoking or non-smoking household?',
@@ -105,7 +105,7 @@ angular.module('ncsoDemo')
         ]
       }
     };
-    
+
     $scope.exploratoryCohortParams = {
       list: [
         {
@@ -136,10 +136,10 @@ angular.module('ncsoDemo')
         }
       ]
     };
-    
+
     $scope.currentCohortCount = 0;
-    $scope.exploratoryCaseCount = 0;    
-    
+    $scope.exploratoryCaseCount = 0;
+
     $scope.submitCohort = function () {
       HttpHelper.httpWrapper({
         url: serviceURL + 'api/cohortbuilder',
@@ -147,15 +147,15 @@ angular.module('ncsoDemo')
         params: {filterData: $scope.cohortParams}
       }, function (data, status, headers, config) {
         $scope.cohortQuery = data.sparqlQuery;
-        
-        if(data.sparqlResults !== undefined) {
+
+        if (data.sparqlResults !== undefined) {
           $scope.cohortResultKeys = Object.getOwnPropertyNames(data.sparqlResults[0]);
         }
         $scope.cohortResults = data.sparqlResults;
         console.log($scope.cohortResultKeys);
-      });      
+      });
     };
-    
+
     $scope.submitExplore = function () {
       HttpHelper.httpWrapper({
         url: serviceURL + 'api/cohortexplorer',
@@ -164,14 +164,14 @@ angular.module('ncsoDemo')
       }, function (data, status, headers, config) {
         console.log(data);
         $scope.exploreQuery = data.sparqlQuery;
-        
-        if(data.sparqlResults !== undefined) {
+
+        if (data.sparqlResults !== undefined) {
           $scope.exploreResultKeys = Object.getOwnPropertyNames(data.sparqlResults[0]);
         }
         $scope.exploreResults = data.sparqlResults;
         console.log($scope.exploreResultKeys);
-        
-      });      
+
+      });
     };
-    
+
   });

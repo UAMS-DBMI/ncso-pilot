@@ -3,6 +3,8 @@
 var app = angular.module('ConfigurationService');
 
 app.service('ConfigurationService', function () {
-  this.ServiceUrl = 'http://144.30.12.7';
+  var remoteServer = 'http://144.30.12.7';
+  var localhost = 'http://localhost';
+  this.ServiceUrl = localhost;
   this.ServicePort = '9000';
 });
