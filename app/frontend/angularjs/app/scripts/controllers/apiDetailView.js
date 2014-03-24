@@ -2,7 +2,13 @@
 
 angular.module('ncsoDemo')
   .controller('APIDetailView', function ($scope, $location, $routeParams, HttpHelper, ConfigurationService) {
-    var serviceURL = ConfigurationService.ServiceUrl + ':' + ConfigurationService.ServicePort + '/';
+
+    var serviceURL = ''
+    if(ConfigurationService.ServicePort !== ''){
+        serviceURL = ConfigurationService.ServiceUrl + ':' + ConfigurationService.ServicePort + '/';
+    } else {
+        serviceURL = ConfigurationService.ServiceUrl + '/';
+    }
 
     $scope.apiName = $routeParams.route;
     $scope.apiPrettyName = $routeParams.prettyName;

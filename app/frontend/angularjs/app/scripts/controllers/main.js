@@ -2,8 +2,12 @@
 
 angular.module('ncsoDemo')
   .controller('LandingPage', function ($scope, $http, $location, HttpHelper, ConfigurationService) {
-    var serviceURL = ConfigurationService.ServiceUrl + ':' + ConfigurationService.ServicePort + '/';
-
+    var serviceURL = ''
+    if(ConfigurationService.ServicePort !== ''){
+      serviceURL = ConfigurationService.ServiceUrl + ':' + ConfigurationService.ServicePort + '/';
+    } else {
+      serviceURL = ConfigurationService.ServiceUrl + '/';
+    }
     $scope.apiList = [];
     $scope.apiKeys = [];
     $scope.ncsodemoURL = $location.absUrl();

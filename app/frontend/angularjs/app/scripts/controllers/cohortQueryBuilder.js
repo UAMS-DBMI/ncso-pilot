@@ -3,8 +3,12 @@
 angular.module('ncsoDemo')
   .controller('CohortQueryBuilder', function ($scope, $location, $routeParams, HttpHelper, $http, ConfigurationService) {
     // TODO: extract the below url to a config file
-    var serviceURL = ConfigurationService.ServiceUrl + ':' + ConfigurationService.ServicePort + '/';
-
+    var serviceURL = ''
+    if(ConfigurationService.ServicePort !== ''){
+      serviceURL = ConfigurationService.ServiceUrl + ':' + ConfigurationService.ServicePort + '/';
+    } else {
+      serviceURL = ConfigurationService.ServiceUrl + '/';
+    }
     $scope.cohortDescriptionText = 'This page allows you to identify cohorts of participants that meet multiple criteria.  Fill out the form to retreive a list of NCS participants that meet specific requirements.';
     $scope.exploreDescriptionText = 'This page allows you to easily learn which kind of data NCS captured about its participants. Check the boxes to search specific kinds of data gathered about NCS participants.';
 
