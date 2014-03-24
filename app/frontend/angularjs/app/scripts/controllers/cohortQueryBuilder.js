@@ -170,12 +170,12 @@ angular.module('ncsoDemo')
         $scope.exploreQuery = data.sparqlQuery;
 
         if (data.sparqlResults !== undefined) {
-          $scope.exploreResultKeys = Object.getOwnPropertyNames(data.sparqlResults[0]);
+          $scope.exploreResultKeys = data.sparqlHeaders
         }
         $scope.exploreResults = data.sparqlResults;
-        console.log($scope.exploreResultKeys);
-
+        console.log($scope.exploreResultKeys);        
       });
     };
 
+    
   });

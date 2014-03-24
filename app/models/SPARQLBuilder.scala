@@ -62,26 +62,32 @@ object SPARQLBuilder {
   val lengthFilter = "    FILTER(xsd:float(?lengthValue) %s %s)"
   val weightFilter = "    FILTER(xsd:float(?weightValue) %s %s)"
 
-  def buildQueryForAll(dataType: List[String]): String = {
+  def buildQueryForAll(dataType: List[String]): (List[String], String) = {
     var headers = List[String]()
+    var headerList = List[String]()
     var body = List[String]()
 
     if(dataType.contains("participantID")){
-      headers ::= "?participantID"
+      headers  = headers :+ "?participantID"
+      headerList = headerList :+ "participantID"
     }
     if(dataType.contains("anthroData")){
-      headers ::= anthroHeader
+      headers = headers :+ anthroHeader
+      headerList = headerList :+ "weight"
+      headerList = headerList :+ "height"
       body ::= anthroDataQuery
     }
     if(dataType.contains("generalHealthData")){
-      headers ::= surrogateDataHeader
+      headers = headers :+ surrogateDataHeader
+      headerList = headerList :+ "surDataType"
+      headerList = headerList :+ "surDataValue"
       body ::= surrogateDataQuery
     }
     if(dataType.contains("nicotineData")){
-      headers ::= nicotineExposureHeader
+      headers = headers :+ nicotineExposureHeader
+      headerList = headerList :+ "participantType"
       body ::= nicotineExposureDataQuery
     }
-
 
     val query =
       """select distinct """ + headers.mkString(" ") +
@@ -89,7 +95,7 @@ object SPARQLBuilder {
          |    ?participant rdf:type <http://www.semanticweb.org/semanticweb.org/ncso/NCSO_00000085> ;
          |      rdfs:label ?participantID . """.stripMargin + body.mkString("\n") + "\n} LIMIT 10"
 
-    return query
+    return (headerList, query)
   }
 
   def buildCohortQuery(anthro: List[Map[String, String]], smoking: Option[String], data: List[String]): String = {

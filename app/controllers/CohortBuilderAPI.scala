@@ -72,13 +72,14 @@ object CohortBuilderAPI extends Controller {
         case item: JsonNode if(item.has("isChecked") && item.get("isChecked").asBoolean() == true) => item.get("id").toString
       }).toTraversable.toList.map(_.replace("\"", ""))
 
-      val query = SPARQLBuilder.buildQueryForAll(checked)
+      val (headers, query) = SPARQLBuilder.buildQueryForAll(checked)
 
       val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + query.replace("\u00A0", " "))
 
       //accidentally used Java Json; convert back later
       Ok(SJson.toJson(
         Map(
+          "sparqlHeaders" -> SJson.toJson(headers),
           "sparqlQuery" -> SJson.toJson(query),
           "sparqlResults" -> SJson.toJson(resultRows)
         )
