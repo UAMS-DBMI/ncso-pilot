@@ -9,8 +9,8 @@ angular.module('ncsoDemo')
     } else {
       serviceURL = ConfigurationService.ServiceUrl + '/';
     }
-    $scope.cohortDescriptionText = 'This page allows you to identify cohorts of participants that meet multiple criteria.  Fill out the form to retreive a list of NCS participants that meet specific requirements.';
-    $scope.exploreDescriptionText = 'This page allows you to easily learn which kind of data NCS captured about its participants. Check the boxes to search specific kinds of data gathered about NCS participants.';
+    $scope.cohortDescriptionText = 'This page helps you identify cohorts of NCS participants that meet certain criteria. Fill out the form and click \"Submit\" to retrieve a cohort of NCS participants that meet your criteria.';
+    $scope.exploreDescriptionText = 'This page helps you quickly become familiar with the types of data that the NCS has gathered about its participants. Check the boxes and click \"Submit\" to retrieve specific data. ';
 
     $scope.cohortParams = {
       anthro: {
