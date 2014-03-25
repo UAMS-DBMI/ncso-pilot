@@ -64,28 +64,28 @@ object SPARQLBuilder {
 
   def buildQueryForAll(dataType: List[String]): (List[String], String) = {
     var headers = List[String]()
-    var headerList = List[String]()
+    var headerOrder = List[String]()
     var body = List[String]()
 
     if(dataType.contains("participantID")){
       headers  = headers :+ "?participantID"
-      headerList = headerList :+ "participantID"
+      headerOrder = headerOrder :+ "participantID"
     }
     if(dataType.contains("anthroData")){
       headers = headers :+ anthroHeader
-      headerList = headerList :+ "weight"
-      headerList = headerList :+ "height"
+      headerOrder = headerOrder :+ "weight"
+      headerOrder = headerOrder :+ "height"
       body ::= anthroDataQuery
     }
     if(dataType.contains("generalHealthData")){
       headers = headers :+ surrogateDataHeader
-      headerList = headerList :+ "surDataType"
-      headerList = headerList :+ "surDataValue"
+      headerOrder = headerOrder :+ "surDataType"
+      headerOrder = headerOrder :+ "surDataValue"
       body ::= surrogateDataQuery
     }
     if(dataType.contains("nicotineData")){
       headers = headers :+ nicotineExposureHeader
-      headerList = headerList :+ "participantType"
+      headerOrder = headerOrder :+ "participantType"
       body ::= nicotineExposureDataQuery
     }
 
@@ -95,28 +95,35 @@ object SPARQLBuilder {
          |    ?participant rdf:type <http://www.semanticweb.org/semanticweb.org/ncso/NCSO_00000085> ;
          |      rdfs:label ?participantID . """.stripMargin + body.mkString("\n") + "\n} LIMIT 10"
 
-    return (headerList, query)
+    return (headerOrder, query)
   }
 
-  def buildCohortQuery(anthro: List[Map[String, String]], smoking: Option[String], data: List[String]): String = {
+  def buildCohortQuery(anthro: List[Map[String, String]], smoking: Option[String], data: List[String]): (List[String], String) = {
     var headers = List[String]()
+    var headerOrder = List[String]()
     var body = Set[String]()
     var filters = Set[String]()
 
     //always want participant ID
     headers ::= "?participantID"
+    headerOrder = headerOrder :+ "participantID"
 
     //handling which data the user wants to return
     if(data.contains("anthroData")){
       headers ::= anthroHeader
+      headerOrder = headerOrder :+ "weight"
+      headerOrder = headerOrder :+ "height"
       body += anthroDataQuery
     }
     if(data.contains("generalHealthData")){
       headers ::= surrogateDataHeader
+      headerOrder = headerOrder :+ "surDataType"
+      headerOrder = headerOrder :+ "surDataValue"
       body += surrogateDataQuery
     }
     if(data.contains("nicotineData")){
       headers ::= nicotineExposureHeader
+      headerOrder = headerOrder :+ "participantType"
       body += nicotineExposureDataQuery
     }
 
@@ -168,7 +175,7 @@ object SPARQLBuilder {
         body.mkString("\n") + "\n" +
         filters.mkString("\n") + "\n} LIMIT 10"
 
-    return query
+    return (headerOrder, query)
   }
 }
 

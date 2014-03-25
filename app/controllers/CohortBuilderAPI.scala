@@ -51,13 +51,14 @@ object CohortBuilderAPI extends Controller {
         )
       }).toList
 
-      val query = SPARQLBuilder.buildCohortQuery(checkedAnthro, householdOption, checkedData)
+      val (headers, query) = SPARQLBuilder.buildCohortQuery(checkedAnthro, householdOption, checkedData)
 
       val resultRows : List[Map[String, String]] = SesameSparql2Json.getResultRowsFromSPARQLQuery(sesamePrefixes + query.replace("\u00A0", " "))
 
       //accidentally used Java Json; convert back later
       Ok(SJson.toJson(
         Map(
+          "sparqlHeaders" -> SJson.toJson(headers),
           "sparqlQuery" -> SJson.toJson(query),
           "sparqlResults" -> SJson.toJson(resultRows)
         )

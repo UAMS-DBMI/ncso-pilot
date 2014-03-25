@@ -3,7 +3,7 @@
 angular.module('ncsoDemo')
   .controller('CohortQueryBuilder', function ($scope, $location, $routeParams, HttpHelper, $http, ConfigurationService) {
     // TODO: extract the below url to a config file
-    var serviceURL = ''
+    var serviceURL = '';
     if(ConfigurationService.ServicePort !== ''){
       serviceURL = ConfigurationService.ServiceUrl + ':' + ConfigurationService.ServicePort + '/';
     } else {
@@ -153,7 +153,7 @@ angular.module('ncsoDemo')
         $scope.cohortQuery = data.sparqlQuery;
 
         if (data.sparqlResults !== undefined) {
-          $scope.cohortResultKeys = Object.getOwnPropertyNames(data.sparqlResults[0]);
+          $scope.cohortResultKeys = data.sparqlHeaders;
         }
         $scope.cohortResults = data.sparqlResults;
         console.log($scope.cohortResultKeys);
@@ -170,7 +170,7 @@ angular.module('ncsoDemo')
         $scope.exploreQuery = data.sparqlQuery;
 
         if (data.sparqlResults !== undefined) {
-          $scope.exploreResultKeys = data.sparqlHeaders
+          $scope.exploreResultKeys = data.sparqlHeaders;
         }
         $scope.exploreResults = data.sparqlResults;
         console.log($scope.exploreResultKeys);        
