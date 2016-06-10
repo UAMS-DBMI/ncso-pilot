@@ -13,7 +13,7 @@ import com.complexible.stardog.api.ConnectionConfiguration
 
 
 object SesameSparql2Json {
-  private var repository : Repository = new StardogRepository(ConnectionConfiguration.to("ncso").credentials("admin", "admin").server("snarl://144.30.12.7"))
+  private var repository : Repository = new StardogRepository(ConnectionConfiguration.to("ncso").credentials("admin", "admin").server("snarl://144.30.12.103"))
 
   repository.initialize()
 

@@ -3,8 +3,8 @@
 var app = angular.module('ConfigurationService');
 
 app.service('ConfigurationService', function () {
-  var remoteServer = 'http://144.30.12.7';
+  var remoteServer = 'http://ingarden.uams.edu/vantage';
   var localhost = 'http://localhost';
-  this.ServiceUrl = localhost;
-  this.ServicePort = '9000';
+  this.ServiceUrl = remoteServer;
+  this.ServicePort = '';
 });

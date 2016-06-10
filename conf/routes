@@ -18,7 +18,7 @@ GET        /api/cohortexplorer                                  controllers.Coho
 GET        /api/cohortbuilder                                   controllers.CohortBuilderAPI.getCohort(filterData)
 
 # Route to Angular.js App static dist files
-GET        /                            controllers.Default.redirect(to = "/demo")
+GET        /                            controllers.Assets.at(path="/public", file="/javascripts/dist/index.html")
 GET        /demo                        controllers.Assets.at(path="/public", file="/javascripts/dist/index.html")
 
 # Below is Angular.js specific routing so I can have the above root path.
